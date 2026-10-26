@@ -1,0 +1,51 @@
+services:
+  mariadb:
+    image: mariadb:10.11
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --skip-character-set-client-handshake
+      - --skip-innodb-read-only-compressed
+    environment:
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD:-change-me}
+    volumes:
+      - mariadb-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mariadb-admin ping -h localhost -p$${MARIADB_ROOT_PASSWORD} --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  redis:
+    image: redis:7-alpine
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  frappe:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      SHELL: /bin/bash
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD:-change-me}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-admin}
+      SITE_NAME: ${SITE_NAME:-insights.localhost}
+    working_dir: /home/frappe
+    volumes:
+      - .:/workspace
+      - frappe-bench:/home/frappe/frappe-bench
+    ports:
+      - "8000:8000"
+      - "9000:9000"
+    depends_on:
+      mariadb:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+volumes:
+  mariadb-data:
+  frappe-bench:
