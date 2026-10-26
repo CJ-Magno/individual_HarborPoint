@@ -53,6 +53,7 @@ import {
 	DatabaseZap,
 	LayoutGrid,
 	PanelRightOpen,
+	ClipboardList,
 	SettingsIcon,
 } from 'lucide-vue-next'
 import { computed, ref } from 'vue'
@@ -86,6 +87,11 @@ const links = ref([
 		label: __('Data Sources'),
 		icon: Database,
 		to: 'DataSourceList',
+	},
+	{
+		label: __('HarborPoint Assets'),
+		icon: ClipboardList,
+		to: 'HarborPointAssets',
 	},
 	{
 		label: __('Data Store'),

@@ -21,6 +21,11 @@ const routes = [
 		component: () => import('./dashboard/DashboardList.vue'),
 	},
 	{
+		path: '/harborpoint-assets',
+		name: 'HarborPointAssets',
+		component: () => import('./harborpoint/HarborPointAssets.vue'),
+	},
+	{
 		props: true,
 		name: 'Dashboard',
 		path: '/dashboards/:name',
