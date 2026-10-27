@@ -21,9 +21,16 @@ const routes = [
 		component: () => import('./dashboard/DashboardList.vue'),
 	},
 	{
+		path: '/harborpoint-login',
+		name: 'HarborPointLogin',
+		component: () => import('./harborpoint/HarborPointLogin.vue'),
+		meta: { isGuestView: true, hideSidebar: true },
+	},
+	{
 		path: '/harborpoint-assets',
 		name: 'HarborPointAssets',
 		component: () => import('./harborpoint/HarborPointAssets.vue'),
+		meta: { hideSidebar: true },
 	},
 	{
 		props: true,
