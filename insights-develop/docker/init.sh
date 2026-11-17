@@ -10,6 +10,10 @@ if [ -d "/home/frappe/frappe-bench/apps/frappe" ]; then
     exec bench start
 fi
 
+# Disable SSL for mysql client globally
+echo -e "[client]\nssl=false\nssl-mode=DISABLED" > /home/frappe/.my.cnf
+chmod 600 /home/frappe/.my.cnf
+
 echo "Creating new bench..."
 bench init --skip-redis-config-generation frappe-bench --version version-15
 cd frappe-bench
@@ -23,11 +27,12 @@ sed -i '/redis/d' ./Procfile
 sed -i '/watch/d' ./Procfile
 
 bench get-app --skip-assets insights https://github.com/frappe/insights --branch main
+
 bench new-site "${SITE_NAME}" \
   --force \
   --mariadb-root-password "${MARIADB_ROOT_PASSWORD}" \
   --admin-password "${ADMIN_PASSWORD}" \
-  --no-mariadb-socket
+  --mariadb-user-host-login-scope='%'
 
 bench set-config -g server_script_enabled 1
 bench --site "${SITE_NAME}" install-app insights
