@@ -11,7 +11,7 @@ if [ -d "/home/frappe/frappe-bench/apps/frappe" ]; then
 fi
 
 # Disable SSL for mysql client globally
-echo -e "[client]\nssl=false\nssl-mode=DISABLED" > /home/frappe/.my.cnf
+echo -e "[client]\nssl=false" > /home/frappe/.my.cnf
 chmod 600 /home/frappe/.my.cnf
 
 echo "Creating new bench..."
