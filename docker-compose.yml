@@ -21,6 +21,7 @@ services:
     command: bash /workspace/insights-develop/docker/init.sh
     environment:
       SHELL: /bin/bash
+      MARIADB_ROOT_PASSWORD: "123"
     working_dir: /home/frappe
     volumes:
       - .:/workspace
