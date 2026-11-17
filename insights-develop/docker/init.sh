@@ -22,7 +22,7 @@ bench set-redis-socketio-host redis://redis:6379
 sed -i '/redis/d' ./Procfile
 sed -i '/watch/d' ./Procfile
 
-bench get-app insights /workspace
+bench get-app insights /workspace/insights-develop
 bench new-site "${SITE_NAME}" \
   --force \
   --mariadb-root-password "${MARIADB_ROOT_PASSWORD}" \
