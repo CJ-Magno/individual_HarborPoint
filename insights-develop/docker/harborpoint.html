@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HarborPoint Assets</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
+<style>
+:root {
+  --hp-blue:#1d4ed8;--hp-blue-lt:#dbeafe;--bg:#f8fafc;--surface:#ffffff;
+  --border:#e2e8f0;--text:#0f172a;--muted:#64748b;--muted2:#94a3b8;
+  --ok:#16a34a;--ok-bg:#dcfce7;--warn:#d97706;--warn-bg:#fef3c7;
+  --err:#dc2626;--err-bg:#fee2e2;--info:#2563eb;--info-bg:#dbeafe;
+  --r:6px;--font-head:'Space Grotesk',system-ui,sans-serif;--font-body:'Inter',system-ui,sans-serif;
+}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f172a;--surface:#1e293b;--border:#334155;--text:#f1f5f9;--muted:#94a3b8;--muted2:#64748b;
+  --hp-blue-lt:#1e3a8a;--ok-bg:#14532d;--warn-bg:#451a03;--err-bg:#450a0a;--info-bg:#1e3a8a;color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0f172a;--surface:#1e293b;--border:#334155;--text:#f1f5f9;--muted:#94a3b8;--muted2:#64748b;
+  --hp-blue-lt:#1e3a8a;--ok-bg:#14532d;--warn-bg:#451a03;--err-bg:#450a0a;--info-bg:#1e3a8a;color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0}
+html,body{height:100%;font-family:var(--font-body);font-size:14px;color:var(--text);background:var(--bg)}
+#app{display:flex;flex-direction:column;min-height:100%}
+header{position:sticky;top:0;background:var(--surface);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:14px 16px;z-index:10}
+.brand{display:flex;align-items:center;gap:10px}
+.brand-mark{width:36px;height:36px;border-radius:50%;background:var(--hp-blue);
+  display:grid;place-items:center;color:#fff;font-family:var(--font-head);font-weight:700;font-size:13px}
+.brand-text strong{font-family:var(--font-head);font-weight:600;font-size:15px;display:block}
+.brand-text span{color:var(--muted);font-size:12px}
+.header-actions{display:flex;align-items:center;gap:8px}
+.badge-baseline{background:var(--ok-bg);color:var(--ok);font-size:11px;font-weight:600;padding:3px 10px;border-radius:999px}
+.btn{display:inline-flex;align-items:center;padding:7px 14px;border-radius:var(--r);border:none;cursor:pointer;font:500 13px var(--font-body);transition:opacity .15s}
+.btn:hover{opacity:.85}
+.btn-ghost{background:var(--border);color:var(--text)}
+main{flex:1;overflow:auto;padding:24px 16px 32px;display:flex;flex-direction:column;gap:20px}
+.sec-head{margin-bottom:12px}
+.sec-head h2{font:600 15px var(--font-head);color:var(--text)}
+.sec-head p{color:var(--muted);font-size:12px;margin-top:2px}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.kpi-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:4px}
+.kpi-label{font-size:12px;color:var(--muted);font-weight:500}
+.kpi-value{font:700 28px/1 var(--font-head);color:var(--text);font-variant-numeric:tabular-nums}
+.kpi-detail{font-size:12px;color:var(--muted2)}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:18px}
+.panel-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px}
+.panel-head-left h2{font:600 14px var(--font-head)}
+.panel-head-left p{color:var(--muted);font-size:12px;margin-top:2px}
+.tag-warn{font-size:12px;font-weight:600;color:var(--warn)}
+.step-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.step-item{background:var(--bg);border-radius:var(--r);padding:10px 12px;font-size:13px;color:var(--text);display:flex;align-items:flex-start;gap:8px}
+.dot-warn{width:8px;height:8px;border-radius:50%;background:var(--warn);flex-shrink:0;margin-top:4px}
+.two-col{display:grid;grid-template-columns:1.4fr 1fr;gap:16px}
+@media(max-width:860px){.two-col{grid-template-columns:1fr}}
+.lifecycle-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.lifecycle-card{border:1px solid var(--border);border-radius:var(--r);padding:14px}
+.lifecycle-card.risk{border-color:var(--warn);background:var(--warn-bg)}
+.lc-eyebrow{font-size:11px;color:var(--muted);font-weight:600;letter-spacing:.05em}
+.lc-name{font:600 13px var(--font-head);margin:6px 0 4px;color:var(--text)}
+.lc-asis{font-size:12px;color:var(--muted);line-height:1.4}
+.lc-tobe{font-size:11px;color:var(--ok);margin-top:8px}
+.gap-tag{font-size:11px;font-weight:600;color:var(--warn);float:right}
+.pain-list{display:flex;flex-direction:column;gap:12px}
+.pain-row{display:flex;gap:10px;align-items:flex-start}
+.pain-id{flex-shrink:0;background:var(--err-bg);color:var(--err);font:600 11px var(--font-body);padding:2px 7px;border-radius:4px;margin-top:2px}
+.pain-title{font-size:13px;font-weight:600;color:var(--text)}
+.pain-detail{font-size:12px;color:var(--muted);margin-top:2px}
+.table-wrap{overflow-x:auto;min-width:0}
+.table-toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px}
+.filter-select{border:1px solid var(--border);background:var(--surface);color:var(--text);font:13px var(--font-body);border-radius:var(--r);padding:6px 10px;cursor:pointer}
+table{width:100%;border-collapse:collapse;min-width:620px}
+thead th{text-align:left;font:600 11px/1 var(--font-body);color:var(--muted);letter-spacing:.06em;text-transform:uppercase;padding:10px 12px;border-bottom:1px solid var(--border)}
+tbody tr{border-bottom:1px solid var(--border)}
+tbody tr:last-child{border-bottom:none}
+tbody td{padding:11px 12px;font-size:13px;color:var(--muted);vertical-align:middle}
+td.asset-id{font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
+.status-pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:11px;font-weight:600}
+.s-assigned{background:var(--ok-bg);color:var(--ok)}
+.s-loaner{background:var(--info-bg);color:var(--info)}
+.s-repair{background:var(--warn-bg);color:var(--warn)}
+.s-retirement{background:var(--err-bg);color:var(--err)}
+.empty-row td{text-align:center;padding:24px;color:var(--muted)}
+#login-overlay{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:100;padding:24px}
+.login-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:36px 32px;width:100%;max-width:380px;box-shadow:0 8px 32px rgba(0,0,0,.1)}
+.login-logo{display:flex;justify-content:center;margin-bottom:20px}
+.login-mark{width:56px;height:56px;border-radius:50%;background:var(--hp-blue);display:grid;place-items:center;color:#fff;font:700 20px var(--font-head)}
+.login-title{text-align:center;margin-bottom:24px}
+.login-title h1{font:700 18px var(--font-head);color:var(--text)}
+.login-title p{color:var(--muted);font-size:13px;margin-top:4px}
+.form-group{display:flex;flex-direction:column;gap:4px;margin-bottom:14px}
+.form-group label{font-size:12px;font-weight:600;color:var(--muted)}
+.form-group input{border:1px solid var(--border);border-radius:var(--r);padding:9px 12px;font:14px var(--font-body);color:var(--text);background:var(--bg);outline:none;transition:border-color .15s}
+.form-group input:focus{border-color:var(--hp-blue)}
+#login-btn{width:100%;padding:10px;background:var(--hp-blue);color:#fff;border:none;border-radius:var(--r);font:600 14px var(--font-body);cursor:pointer;margin-top:6px;transition:opacity .15s}
+#login-btn:hover{opacity:.88}
+#login-error{background:var(--err-bg);color:var(--err);border-radius:var(--r);padding:8px 12px;font-size:13px;margin-bottom:10px}
+.login-footer{text-align:center;margin-top:20px;border-top:1px solid var(--border);padding-top:16px}
+.login-footer p{color:var(--muted2);font-size:11px;line-height:1.6}
+</style>
+</head>
+<body>
+<div id="login-overlay">
+  <div class="login-card">
+    <div class="login-logo"><div class="login-mark">HP</div></div>
+    <div class="login-title">
+      <h1>HarborPoint Learning Solutions</h1>
+      <p>IT Asset Management System</p>
+    </div>
+    <div id="login-error" hidden></div>
+    <div class="form-group">
+      <label for="usr">Username or Email</label>
+      <input id="usr" type="text" value="Administrator" autocomplete="username">
+    </div>
+    <div class="form-group">
+      <label for="pwd">Password</label>
+      <input id="pwd" type="password" placeholder="••••••" autocomplete="current-password">
+    </div>
+    <button id="login-btn" type="button">Sign in to HarborPoint</button>
+    <div class="login-footer"><p>Calapan City, Oriental Mindoro, Philippines<br>© 2024 HarborPoint Learning Solutions</p></div>
+  </div>
+</div>
+
+<div id="app" hidden>
+  <header>
+    <div class="brand">
+      <div class="brand-mark">HP</div>
+      <div class="brand-text">
+        <strong>HarborPoint Learning Solutions</strong>
+        <span>IT Asset Management</span>
+      </div>
+    </div>
+    <div class="header-actions">
+      <span class="badge-baseline">AS-IS baseline</span>
+      <button class="btn btn-ghost" id="toggle-intake">Record intake</button>
+      <button class="btn btn-ghost" id="logout-btn">Sign out</button>
+    </div>
+  </header>
+  <main>
+    <section>
+      <div class="sec-head"><h2>Asset overview</h2><p>Live counts from the AS-IS baseline — Calapan HQ and all branches.</p></div>
+      <div class="kpi-grid">
+        <div class="kpi-card"><span class="kpi-label">Tracked assets</span><span class="kpi-value">1,248</span><span class="kpi-detail">Laptops, desktops, mobile, peripherals</span></div>
+        <div class="kpi-card"><span class="kpi-label">Pending intake</span><span class="kpi-value">18</span><span class="kpi-detail">Received but not fully registered</span></div>
+        <div class="kpi-card"><span class="kpi-label">Loaners due soon</span><span class="kpi-value">7</span><span class="kpi-detail">Return dates require follow-up</span></div>
+        <div class="kpi-card"><span class="kpi-label">Renewals this quarter</span><span class="kpi-value">12</span><span class="kpi-detail">License and warranty renewal dates</span></div>
+      </div>
+    </section>
+    <section id="intake-panel" class="panel" hidden>
+      <div class="panel-head">
+        <div class="panel-head-left"><h2>Asset intake checklist</h2><p>Centralize receipt, tagging, and Freshservice registration.</p></div>
+        <span class="tag-warn">3 steps pending</span>
+      </div>
+      <div class="step-grid">
+        <div class="step-item"><span class="dot-warn"></span>Confirm delivery and serial number</div>
+        <div class="step-item"><span class="dot-warn"></span>Apply asset tag and assign owner</div>
+        <div class="step-item"><span class="dot-warn"></span>Register receipt and evidence</div>
+      </div>
+    </section>
+    <div class="two-col">
+      <div class="panel">
+        <div class="panel-head">
+          <div class="panel-head-left"><h2>Asset lifecycle</h2><p>AS-IS process mapped to proposed control points.</p></div>
+          <span style="font-size:12px;color:var(--muted)">280 employees · 24 IT staff</span>
+        </div>
+        <div class="lifecycle-grid" id="lifecycle-grid"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><div class="panel-head-left"><h2>Priority pain points</h2><p>Risks surfaced from the AS-IS assessment.</p></div></div>
+        <div class="pain-list" id="pain-list"></div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="table-toolbar">
+        <div class="panel-head-left"><h2 style="font:600 14px var(--font-head)">Asset register</h2><p style="color:var(--muted);font-size:12px;margin-top:2px">Validate custody, location, and lifecycle status.</p></div>
+        <select class="filter-select" id="status-filter">
+          <option value="All">All statuses</option>
+          <option value="Assigned">Assigned</option>
+          <option value="Repair">Repair</option>
+          <option value="Loaner">Loaner</option>
+          <option value="Retirement">Retirement</option>
+        </select>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Asset ID</th><th>Type</th><th>Custodian</th><th>Location</th><th>Status</th><th>Next action</th></tr></thead>
+          <tbody id="asset-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+<script>
+const ASSETS=[
+  {id:'HPL-LT-0042',type:'Laptop',custodian:'Maria Santos',location:'Calapan HQ',status:'Assigned',next:'Review in 90 days'},
+  {id:'HPL-LT-0088',type:'Laptop',custodian:'IT Service Desk',location:'Batangas Branch',status:'Loaner',next:'Return due 12 Aug'},
+  {id:'HPL-DT-0131',type:'Desktop',custodian:'Jose Dela Cruz',location:'Quezon City Office',status:'Repair',next:'Warranty check'},
+  {id:'HPL-TB-0027',type:'Tablet',custodian:'Unassigned',location:'Calapan Warehouse',status:'Retirement',next:'Attach erasure evidence'},
+  {id:'HPL-LT-0054',type:'Laptop',custodian:'Ana Reyes',location:'Calapan HQ',status:'Assigned',next:'Review in 60 days'},
+  {id:'HPL-DT-0099',type:'Desktop',custodian:'IT Service Desk',location:'Batangas Branch',status:'Loaner',next:'Return due 20 Aug'},
+];
+const LIFECYCLE=[
+  {name:'Procurement & intake',asIs:'Manual entry after delivery; approvals use email.',toBe:'Centralized receipt and approval workflow.'},
+  {name:'Assignment & check-out',asIs:'Requests and handoff are linked, but acceptance varies.',toBe:'Required digital acceptance before closure.'},
+  {name:'Movement & transfer',asIs:'Locations and loaners are updated manually.',toBe:'Transfer rules and return dates are enforced.'},
+  {name:'Maintenance & repair',asIs:'Diagnostics, warranty checks, and updates are inconsistent.',toBe:'Standard checks and complete repair history.'},
+  {name:'Software licensing',asIs:'Availability and renewals rely partly on reminders.',toBe:'Automated lifecycle and renewal alerts.'},
+  {name:'Retirement & disposal',asIs:'Disposal and erasure evidence is stored separately.',toBe:'One asset record with auditable evidence.'},
+];
+const PAIN=[
+  {id:'P1',title:'Delayed intake visibility',detail:'Assets can remain unregistered for several days after delivery.'},
+  {id:'P4',title:'Missing digital acceptance',detail:'Equipment may be released before accountability is complete.'},
+  {id:'P6',title:'Loaner tracking gap',detail:'Separate tracking makes return dates difficult to monitor.'},
+  {id:'P9',title:'Renewal dependency',detail:'License renewals partly depend on personal calendar reminders.'},
+  {id:'P10',title:'Erasure evidence gap',detail:'Data-erasure proof is stored outside the asset record.'},
+];
+const SC={Assigned:'s-assigned',Loaner:'s-loaner',Repair:'s-repair',Retirement:'s-retirement'};
+const lcGrid=document.getElementById('lifecycle-grid');
+LIFECYCLE.forEach((s,i)=>{
+  const d=document.createElement('div');d.className='lifecycle-card risk';
+  d.innerHTML=`<span class="lc-eyebrow">0${i+1} <span class="gap-tag">Gap</span></span><div class="lc-name">${s.name}</div><div class="lc-asis">${s.asIs}</div><div class="lc-tobe">To-be: ${s.toBe}</div>`;
+  lcGrid.appendChild(d);
+});
+const painList=document.getElementById('pain-list');
+PAIN.forEach(p=>{
+  const d=document.createElement('div');d.className='pain-row';
+  d.innerHTML=`<span class="pain-id">${p.id}</span><div><div class="pain-title">${p.title}</div><div class="pain-detail">${p.detail}</div></div>`;
+  painList.appendChild(d);
+});
+function renderTable(filter){
+  const tbody=document.getElementById('asset-tbody');tbody.innerHTML='';
+  const rows=filter==='All'?ASSETS:ASSETS.filter(a=>a.status===filter);
+  if(!rows.length){tbody.innerHTML='<tr class="empty-row"><td colspan="6">No assets match this filter.</td></tr>';return;}
+  rows.forEach(a=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td class="asset-id">${a.id}</td><td>${a.type}</td><td>${a.custodian}</td><td>${a.location}</td><td><span class="status-pill ${SC[a.status]}">${a.status}</span></td><td>${a.next}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+document.getElementById('status-filter').addEventListener('change',e=>renderTable(e.target.value));
+renderTable('All');
+const intakePanel=document.getElementById('intake-panel');
+const toggleBtn=document.getElementById('toggle-intake');
+toggleBtn.addEventListener('click',()=>{const open=!intakePanel.hidden;intakePanel.hidden=open;toggleBtn.textContent=open?'Record intake':'Close intake';});
+const overlay=document.getElementById('login-overlay');
+const appEl=document.getElementById('app');
+const errEl=document.getElementById('login-error');
+const pwdEl=document.getElementById('pwd');
+document.getElementById('login-btn').addEventListener('click',doLogin);
+pwdEl.addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+function doLogin(){
+  const usr=document.getElementById('usr').value.trim();
+  const pwd=pwdEl.value;
+  errEl.hidden=true;
+  if(!usr||!pwd){errEl.textContent='Please enter username and password.';errEl.hidden=false;return;}
+  overlay.hidden=true;appEl.hidden=false;
+}
+document.getElementById('logout-btn').addEventListener('click',()=>{appEl.hidden=true;overlay.hidden=false;pwdEl.value='';errEl.hidden=true;});
+</script>
+</body>
+</html>
