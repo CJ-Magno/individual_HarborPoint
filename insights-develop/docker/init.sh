@@ -7,6 +7,25 @@ set -euo pipefail
 
 if [ -d "/home/frappe/frappe-bench/apps/frappe" ]; then
     cd /home/frappe/frappe-bench
+
+    # Install insights if it was not set up in a previous run
+    if [ ! -d "apps/insights" ]; then
+        echo "Frappe bench exists but insights is missing — installing now..."
+        bench get-app --skip-assets insights https://github.com/frappe/insights --branch main
+
+        # Overlay HarborPoint custom files
+        if [ -d "apps/insights/frontend/src2" ]; then
+            cp -rf /workspace/insights-develop/frontend/src2/harborpoint apps/insights/frontend/src2/
+            cp /workspace/insights-develop/frontend/src2/router.ts apps/insights/frontend/src2/router.ts
+            cp /workspace/insights-develop/frontend/src2/components/AppSidebar.vue apps/insights/frontend/src2/components/AppSidebar.vue
+        fi
+        NODE_OPTIONS="--max-old-space-size=1024" bench build --app insights
+
+        bench --site "${SITE_NAME}" install-app insights
+        bench --site "${SITE_NAME}" set-config home_page insights
+        bench --site "${SITE_NAME}" clear-cache
+    fi
+
     exec bench start
 fi
 
