@@ -28,6 +28,16 @@ sed -i '/watch/d' ./Procfile
 
 bench get-app --skip-assets insights https://github.com/frappe/insights --branch main
 
+# Overlay HarborPoint custom UI files from workspace
+echo "Applying HarborPoint customizations..."
+cp -rf /workspace/insights-develop/frontend/src2/harborpoint apps/insights/frontend/src2/
+cp /workspace/insights-develop/frontend/src2/router.ts apps/insights/frontend/src2/router.ts
+cp /workspace/insights-develop/frontend/src2/components/AppSidebar.vue apps/insights/frontend/src2/components/AppSidebar.vue
+
+# Build the frontend (NODE_OPTIONS limits memory for t2.micro)
+echo "Building insights frontend..."
+NODE_OPTIONS="--max-old-space-size=1024" bench build --app insights
+
 bench new-site "${SITE_NAME}" \
   --force \
   --mariadb-root-password "${MARIADB_ROOT_PASSWORD}" \
@@ -40,5 +50,6 @@ bench --site "${SITE_NAME}" set-config developer_mode 1
 bench --site "${SITE_NAME}" set-config mute_emails 1
 bench --site "${SITE_NAME}" clear-cache
 bench use "${SITE_NAME}"
+bench --site "${SITE_NAME}" set-config home_page insights
 
 exec bench start

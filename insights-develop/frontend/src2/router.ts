@@ -12,7 +12,7 @@ const routes = [
 	{
 		path: '/',
 		name: 'Home',
-		redirect: '/dashboards',
+		redirect: '/harborpoint-assets',
 		component: () => import('./home/Home.vue'),
 	},
 	{
@@ -139,8 +139,8 @@ router.beforeEach(async (to, _, next) => {
 		if (import.meta.env.DEV) {
 			return to.fullPath === '/login' ? next() : next('/login')
 		}
-		// redirect to frappe login page, for oauth and signup
-		window.location.href = '/login'
+		// redirect to HarborPoint login page
+		window.location.href = APP_PATH + '/harborpoint-login'
 		return next(false)
 	}
 
