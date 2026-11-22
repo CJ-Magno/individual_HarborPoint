@@ -35,9 +35,12 @@ header{position:sticky;top:0;background:var(--surface);border-bottom:1px solid v
 .brand-text span{color:var(--muted);font-size:12px}
 .header-actions{display:flex;align-items:center;gap:8px}
 .badge-baseline{background:var(--ok-bg);color:var(--ok);font-size:11px;font-weight:600;padding:3px 10px;border-radius:999px}
-.btn{display:inline-flex;align-items:center;padding:7px 14px;border-radius:var(--r);border:none;cursor:pointer;font:500 13px var(--font-body);transition:opacity .15s}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:var(--r);border:none;cursor:pointer;font:500 13px var(--font-body);transition:opacity .15s}
 .btn:hover{opacity:.85}
 .btn-ghost{background:var(--border);color:var(--text)}
+.btn-primary{background:var(--hp-blue);color:#fff}
+.btn-sm{padding:4px 10px;font-size:12px}
+.btn-danger{background:var(--err-bg);color:var(--err)}
 main{flex:1;overflow:auto;padding:24px 16px 32px;display:flex;flex-direction:column;gap:20px}
 .sec-head{margin-bottom:12px}
 .sec-head h2{font:600 15px var(--font-head);color:var(--text)}
@@ -72,19 +75,37 @@ main{flex:1;overflow:auto;padding:24px 16px 32px;display:flex;flex-direction:col
 .pain-detail{font-size:12px;color:var(--muted);margin-top:2px}
 .table-wrap{overflow-x:auto;min-width:0}
 .table-toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px}
+.toolbar-left{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.toolbar-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .filter-select{border:1px solid var(--border);background:var(--surface);color:var(--text);font:13px var(--font-body);border-radius:var(--r);padding:6px 10px;cursor:pointer}
-table{width:100%;border-collapse:collapse;min-width:620px}
+.search-input{border:1px solid var(--border);background:var(--surface);color:var(--text);font:13px var(--font-body);border-radius:var(--r);padding:6px 10px;outline:none;width:200px;transition:border-color .15s}
+.search-input:focus{border-color:var(--hp-blue)}
+table{width:100%;border-collapse:collapse;min-width:720px}
 thead th{text-align:left;font:600 11px/1 var(--font-body);color:var(--muted);letter-spacing:.06em;text-transform:uppercase;padding:10px 12px;border-bottom:1px solid var(--border)}
 tbody tr{border-bottom:1px solid var(--border)}
 tbody tr:last-child{border-bottom:none}
-tbody td{padding:11px 12px;font-size:13px;color:var(--muted);vertical-align:middle}
+tbody tr:hover{background:var(--bg)}
+tbody td{padding:10px 12px;font-size:13px;color:var(--muted);vertical-align:middle}
 td.asset-id{font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
 .status-pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:11px;font-weight:600}
 .s-assigned{background:var(--ok-bg);color:var(--ok)}
 .s-loaner{background:var(--info-bg);color:var(--info)}
 .s-repair{background:var(--warn-bg);color:var(--warn)}
 .s-retirement{background:var(--err-bg);color:var(--err)}
+.action-cell{display:flex;gap:6px}
 .empty-row td{text-align:center;padding:24px;color:var(--muted)}
+/* Modal */
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;display:flex;align-items:center;justify-content:center;padding:16px}
+.modal{background:var(--surface);border-radius:10px;width:100%;max-width:480px;padding:28px;box-shadow:0 16px 48px rgba(0,0,0,.2)}
+.modal h3{font:700 16px var(--font-head);margin-bottom:20px}
+.modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.modal-grid .span2{grid-column:span 2}
+.form-group{display:flex;flex-direction:column;gap:4px}
+.form-group label{font-size:12px;font-weight:600;color:var(--muted)}
+.form-group input,.form-group select,.form-group textarea{border:1px solid var(--border);border-radius:var(--r);padding:8px 10px;font:13px var(--font-body);color:var(--text);background:var(--bg);outline:none;transition:border-color .15s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--hp-blue)}
+.modal-footer{display:flex;justify-content:flex-end;gap:8px;margin-top:20px}
+/* Login */
 #login-overlay{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:100;padding:24px}
 .login-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:36px 32px;width:100%;max-width:380px;box-shadow:0 8px 32px rgba(0,0,0,.1)}
 .login-logo{display:flex;justify-content:center;margin-bottom:20px}
@@ -92,15 +113,18 @@ td.asset-id{font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
 .login-title{text-align:center;margin-bottom:24px}
 .login-title h1{font:700 18px var(--font-head);color:var(--text)}
 .login-title p{color:var(--muted);font-size:13px;margin-top:4px}
-.form-group{display:flex;flex-direction:column;gap:4px;margin-bottom:14px}
-.form-group label{font-size:12px;font-weight:600;color:var(--muted)}
-.form-group input{border:1px solid var(--border);border-radius:var(--r);padding:9px 12px;font:14px var(--font-body);color:var(--text);background:var(--bg);outline:none;transition:border-color .15s}
-.form-group input:focus{border-color:var(--hp-blue)}
+.login-form-group{display:flex;flex-direction:column;gap:4px;margin-bottom:14px}
+.login-form-group label{font-size:12px;font-weight:600;color:var(--muted)}
+.login-form-group input{border:1px solid var(--border);border-radius:var(--r);padding:9px 12px;font:14px var(--font-body);color:var(--text);background:var(--bg);outline:none;transition:border-color .15s}
+.login-form-group input:focus{border-color:var(--hp-blue)}
 #login-btn{width:100%;padding:10px;background:var(--hp-blue);color:#fff;border:none;border-radius:var(--r);font:600 14px var(--font-body);cursor:pointer;margin-top:6px;transition:opacity .15s}
 #login-btn:hover{opacity:.88}
 #login-error{background:var(--err-bg);color:var(--err);border-radius:var(--r);padding:8px 12px;font-size:13px;margin-bottom:10px}
 .login-footer{text-align:center;margin-top:20px;border-top:1px solid var(--border);padding-top:16px}
 .login-footer p{color:var(--muted2);font-size:11px;line-height:1.6}
+/* Toast */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--text);color:var(--surface);padding:10px 18px;border-radius:var(--r);font-size:13px;font-weight:500;z-index:300;opacity:0;transition:opacity .2s}
+.toast.show{opacity:1}
 </style>
 </head>
 <body>
@@ -112,11 +136,11 @@ td.asset-id{font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
       <p>IT Asset Management System</p>
     </div>
     <div id="login-error" hidden></div>
-    <div class="form-group">
+    <div class="login-form-group">
       <label for="usr">Username or Email</label>
       <input id="usr" type="text" value="Administrator" autocomplete="username">
     </div>
-    <div class="form-group">
+    <div class="login-form-group">
       <label for="pwd">Password</label>
       <input id="pwd" type="password" placeholder="••••••" autocomplete="current-password">
     </div>
@@ -142,17 +166,17 @@ td.asset-id{font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
   </header>
   <main>
     <section>
-      <div class="sec-head"><h2>Asset overview</h2><p>Live counts from the AS-IS baseline — Calapan HQ and all branches.</p></div>
+      <div class="sec-head"><h2>Asset overview</h2><p>Live counts from the current asset register.</p></div>
       <div class="kpi-grid">
-        <div class="kpi-card"><span class="kpi-label">Tracked assets</span><span class="kpi-value">1,248</span><span class="kpi-detail">Laptops, desktops, mobile, peripherals</span></div>
-        <div class="kpi-card"><span class="kpi-label">Pending intake</span><span class="kpi-value">18</span><span class="kpi-detail">Received but not fully registered</span></div>
-        <div class="kpi-card"><span class="kpi-label">Loaners due soon</span><span class="kpi-value">7</span><span class="kpi-detail">Return dates require follow-up</span></div>
-        <div class="kpi-card"><span class="kpi-label">Renewals this quarter</span><span class="kpi-value">12</span><span class="kpi-detail">License and warranty renewal dates</span></div>
+        <div class="kpi-card"><span class="kpi-label">Tracked assets</span><span class="kpi-value" id="kpi-total">0</span><span class="kpi-detail">Laptops, desktops, mobile, peripherals</span></div>
+        <div class="kpi-card"><span class="kpi-label">Assigned</span><span class="kpi-value" id="kpi-assigned">0</span><span class="kpi-detail">Currently with custodians</span></div>
+        <div class="kpi-card"><span class="kpi-label">Loaners</span><span class="kpi-value" id="kpi-loaner">0</span><span class="kpi-detail">Return dates require follow-up</span></div>
+        <div class="kpi-card"><span class="kpi-label">For repair / retirement</span><span class="kpi-value" id="kpi-attention">0</span><span class="kpi-detail">Needs action</span></div>
       </div>
     </section>
     <section id="intake-panel" class="panel" hidden>
       <div class="panel-head">
-        <div class="panel-head-left"><h2>Asset intake checklist</h2><p>Centralize receipt, tagging, and Freshservice registration.</p></div>
+        <div class="panel-head-left"><h2>Asset intake checklist</h2><p>Centralize receipt, tagging, and registration.</p></div>
         <span class="tag-warn">3 steps pending</span>
       </div>
       <div class="step-grid">
@@ -176,26 +200,98 @@ td.asset-id{font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
     </div>
     <div class="panel">
       <div class="table-toolbar">
-        <div class="panel-head-left"><h2 style="font:600 14px var(--font-head)">Asset register</h2><p style="color:var(--muted);font-size:12px;margin-top:2px">Validate custody, location, and lifecycle status.</p></div>
-        <select class="filter-select" id="status-filter">
-          <option value="All">All statuses</option>
-          <option value="Assigned">Assigned</option>
-          <option value="Repair">Repair</option>
-          <option value="Loaner">Loaner</option>
-          <option value="Retirement">Retirement</option>
-        </select>
+        <div class="panel-head-left">
+          <h2 style="font:600 14px var(--font-head)">Asset register</h2>
+          <p style="color:var(--muted);font-size:12px;margin-top:2px">Add, edit, and track all IT assets.</p>
+        </div>
+        <div class="toolbar-right">
+          <input class="search-input" id="search-input" type="search" placeholder="Search assets…">
+          <select class="filter-select" id="status-filter">
+            <option value="All">All statuses</option>
+            <option value="Assigned">Assigned</option>
+            <option value="Repair">Repair</option>
+            <option value="Loaner">Loaner</option>
+            <option value="Retirement">Retirement</option>
+          </select>
+          <button class="btn btn-ghost btn-sm" id="export-btn">Export CSV</button>
+          <button class="btn btn-primary btn-sm" id="add-asset-btn">+ Add Asset</button>
+        </div>
       </div>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Asset ID</th><th>Type</th><th>Custodian</th><th>Location</th><th>Status</th><th>Next action</th></tr></thead>
+          <thead><tr><th>Asset ID</th><th>Type</th><th>Custodian</th><th>Location</th><th>Status</th><th>Next action</th><th>Actions</th></tr></thead>
           <tbody id="asset-tbody"></tbody>
         </table>
       </div>
     </div>
   </main>
 </div>
+
+<!-- Asset modal -->
+<div class="modal-backdrop" id="asset-modal" hidden>
+  <div class="modal">
+    <h3 id="modal-title">Add Asset</h3>
+    <div class="modal-grid">
+      <div class="form-group">
+        <label>Asset ID</label>
+        <input id="f-id" type="text" placeholder="HPL-LT-0001" required>
+      </div>
+      <div class="form-group">
+        <label>Type</label>
+        <select id="f-type">
+          <option>Laptop</option><option>Desktop</option><option>Tablet</option>
+          <option>Mobile</option><option>Monitor</option><option>Peripheral</option><option>Server</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Custodian</label>
+        <input id="f-custodian" type="text" placeholder="Full name or Unassigned">
+      </div>
+      <div class="form-group">
+        <label>Location</label>
+        <select id="f-location">
+          <option>Calapan HQ</option>
+          <option>Batangas Branch</option>
+          <option>Quezon City Office</option>
+          <option>Calapan Warehouse</option>
+          <option>Manila Office</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Status</label>
+        <select id="f-status">
+          <option>Assigned</option><option>Loaner</option><option>Repair</option><option>Retirement</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Next Action</label>
+        <input id="f-next" type="text" placeholder="e.g. Review in 90 days">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" id="modal-cancel">Cancel</button>
+      <button class="btn btn-primary" id="modal-save">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Confirm delete modal -->
+<div class="modal-backdrop" id="confirm-modal" hidden>
+  <div class="modal" style="max-width:360px">
+    <h3>Delete asset?</h3>
+    <p style="color:var(--muted);font-size:13px;margin-top:8px">This will permanently remove <strong id="confirm-asset-id"></strong> from the register.</p>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" id="confirm-cancel">Cancel</button>
+      <button class="btn btn-danger" id="confirm-delete">Delete</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
 <script>
-const ASSETS=[
+const STORAGE_KEY='hp_assets_v1';
+const DEFAULT_ASSETS=[
   {id:'HPL-LT-0042',type:'Laptop',custodian:'Maria Santos',location:'Calapan HQ',status:'Assigned',next:'Review in 90 days'},
   {id:'HPL-LT-0088',type:'Laptop',custodian:'IT Service Desk',location:'Batangas Branch',status:'Loaner',next:'Return due 12 Aug'},
   {id:'HPL-DT-0131',type:'Desktop',custodian:'Jose Dela Cruz',location:'Quezon City Office',status:'Repair',next:'Warranty check'},
@@ -219,6 +315,124 @@ const PAIN=[
   {id:'P10',title:'Erasure evidence gap',detail:'Data-erasure proof is stored outside the asset record.'},
 ];
 const SC={Assigned:'s-assigned',Loaner:'s-loaner',Repair:'s-repair',Retirement:'s-retirement'};
+
+// Storage helpers
+function loadAssets(){try{const d=localStorage.getItem(STORAGE_KEY);return d?JSON.parse(d):DEFAULT_ASSETS.map(a=>({...a}));}catch(e){return DEFAULT_ASSETS.map(a=>({...a}));}}
+function saveAssets(arr){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(arr));}catch(e){}}
+
+let assets=loadAssets();
+let editingId=null;
+let deleteId=null;
+
+// KPI update
+function updateKPIs(){
+  document.getElementById('kpi-total').textContent=assets.length;
+  document.getElementById('kpi-assigned').textContent=assets.filter(a=>a.status==='Assigned').length;
+  document.getElementById('kpi-loaner').textContent=assets.filter(a=>a.status==='Loaner').length;
+  document.getElementById('kpi-attention').textContent=assets.filter(a=>a.status==='Repair'||a.status==='Retirement').length;
+}
+
+// Table render
+function renderTable(){
+  const filter=document.getElementById('status-filter').value;
+  const q=document.getElementById('search-input').value.toLowerCase().trim();
+  const tbody=document.getElementById('asset-tbody');
+  tbody.innerHTML='';
+  let rows=assets;
+  if(filter!=='All')rows=rows.filter(a=>a.status===filter);
+  if(q)rows=rows.filter(a=>[a.id,a.type,a.custodian,a.location,a.next].join(' ').toLowerCase().includes(q));
+  if(!rows.length){tbody.innerHTML='<tr class="empty-row"><td colspan="7">No assets match.</td></tr>';return;}
+  rows.forEach(a=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td class="asset-id">${esc(a.id)}</td><td>${esc(a.type)}</td><td>${esc(a.custodian)}</td><td>${esc(a.location)}</td>`+
+      `<td><span class="status-pill ${SC[a.status]||'s-assigned'}">${esc(a.status)}</span></td><td>${esc(a.next)}</td>`+
+      `<td><div class="action-cell">`+
+      `<button class="btn btn-ghost btn-sm" onclick="openEdit('${esc(a.id)}')">Edit</button>`+
+      `<button class="btn btn-danger btn-sm" onclick="openDelete('${esc(a.id)}')">Delete</button>`+
+      `</div></td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+// Modal helpers
+function openAdd(){
+  editingId=null;
+  document.getElementById('modal-title').textContent='Add Asset';
+  document.getElementById('f-id').value='HPL-LT-'+(String(assets.length+1).padStart(4,'0'));
+  document.getElementById('f-id').disabled=false;
+  document.getElementById('f-type').value='Laptop';
+  document.getElementById('f-custodian').value='';
+  document.getElementById('f-location').value='Calapan HQ';
+  document.getElementById('f-status').value='Assigned';
+  document.getElementById('f-next').value='Review in 90 days';
+  document.getElementById('asset-modal').hidden=false;
+}
+function openEdit(id){
+  const a=assets.find(x=>x.id===id);if(!a)return;
+  editingId=id;
+  document.getElementById('modal-title').textContent='Edit Asset';
+  document.getElementById('f-id').value=a.id;
+  document.getElementById('f-id').disabled=true;
+  document.getElementById('f-type').value=a.type;
+  document.getElementById('f-custodian').value=a.custodian;
+  document.getElementById('f-location').value=a.location;
+  document.getElementById('f-status').value=a.status;
+  document.getElementById('f-next').value=a.next;
+  document.getElementById('asset-modal').hidden=false;
+}
+function closeModal(){document.getElementById('asset-modal').hidden=true;editingId=null;}
+function openDelete(id){
+  deleteId=id;
+  document.getElementById('confirm-asset-id').textContent=id;
+  document.getElementById('confirm-modal').hidden=false;
+}
+function closeConfirm(){document.getElementById('confirm-modal').hidden=true;deleteId=null;}
+
+function saveAsset(){
+  const id=document.getElementById('f-id').value.trim();
+  const type=document.getElementById('f-type').value;
+  const custodian=document.getElementById('f-custodian').value.trim()||'Unassigned';
+  const location=document.getElementById('f-location').value;
+  const status=document.getElementById('f-status').value;
+  const next=document.getElementById('f-next').value.trim()||'—';
+  if(!id){showToast('Asset ID is required.');return;}
+  if(editingId){
+    const idx=assets.findIndex(a=>a.id===editingId);
+    if(idx>-1){assets[idx]={id,type,custodian,location,status,next};}
+    showToast('Asset updated.');
+  } else {
+    if(assets.find(a=>a.id===id)){showToast('Asset ID already exists.');return;}
+    assets.push({id,type,custodian,location,status,next});
+    showToast('Asset added.');
+  }
+  saveAssets(assets);updateKPIs();renderTable();closeModal();
+}
+
+function confirmDelete(){
+  assets=assets.filter(a=>a.id!==deleteId);
+  saveAssets(assets);updateKPIs();renderTable();
+  showToast('Asset deleted.');closeConfirm();
+}
+
+// Export CSV
+function exportCSV(){
+  const headers=['Asset ID','Type','Custodian','Location','Status','Next Action'];
+  const rows=assets.map(a=>[a.id,a.type,a.custodian,a.location,a.status,a.next].map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(','));
+  const csv=[headers.join(','),...rows].join('\n');
+  const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
+  a.download='harborpoint-assets.csv';a.click();
+  showToast('Exported CSV.');
+}
+
+// Toast
+function showToast(msg){
+  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
+
+// Static sections
 const lcGrid=document.getElementById('lifecycle-grid');
 LIFECYCLE.forEach((s,i)=>{
   const d=document.createElement('div');d.className='lifecycle-card risk';
@@ -231,21 +445,26 @@ PAIN.forEach(p=>{
   d.innerHTML=`<span class="pain-id">${p.id}</span><div><div class="pain-title">${p.title}</div><div class="pain-detail">${p.detail}</div></div>`;
   painList.appendChild(d);
 });
-function renderTable(filter){
-  const tbody=document.getElementById('asset-tbody');tbody.innerHTML='';
-  const rows=filter==='All'?ASSETS:ASSETS.filter(a=>a.status===filter);
-  if(!rows.length){tbody.innerHTML='<tr class="empty-row"><td colspan="6">No assets match this filter.</td></tr>';return;}
-  rows.forEach(a=>{
-    const tr=document.createElement('tr');
-    tr.innerHTML=`<td class="asset-id">${a.id}</td><td>${a.type}</td><td>${a.custodian}</td><td>${a.location}</td><td><span class="status-pill ${SC[a.status]}">${a.status}</span></td><td>${a.next}</td>`;
-    tbody.appendChild(tr);
-  });
-}
-document.getElementById('status-filter').addEventListener('change',e=>renderTable(e.target.value));
-renderTable('All');
+
+// Event wiring
+document.getElementById('status-filter').addEventListener('change',renderTable);
+document.getElementById('search-input').addEventListener('input',renderTable);
+document.getElementById('add-asset-btn').addEventListener('click',openAdd);
+document.getElementById('modal-cancel').addEventListener('click',closeModal);
+document.getElementById('modal-save').addEventListener('click',saveAsset);
+document.getElementById('confirm-cancel').addEventListener('click',closeConfirm);
+document.getElementById('confirm-delete').addEventListener('click',confirmDelete);
+document.getElementById('export-btn').addEventListener('click',exportCSV);
+document.getElementById('asset-modal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal();});
+document.getElementById('confirm-modal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeConfirm();});
 const intakePanel=document.getElementById('intake-panel');
 const toggleBtn=document.getElementById('toggle-intake');
 toggleBtn.addEventListener('click',()=>{const open=!intakePanel.hidden;intakePanel.hidden=open;toggleBtn.textContent=open?'Record intake':'Close intake';});
+
+// Init
+updateKPIs();renderTable();
+
+// Login
 const overlay=document.getElementById('login-overlay');
 const appEl=document.getElementById('app');
 const errEl=document.getElementById('login-error');
@@ -259,23 +478,17 @@ async function doLogin(){
   if(!usr||!pwd){errEl.textContent='Please enter username and password.';errEl.hidden=false;return;}
   const btn=document.getElementById('login-btn');
   btn.disabled=true;btn.textContent='Signing in…';
-  // Local credential check (demo/admin access)
   if((usr.toLowerCase()==='administrator'||usr.toLowerCase()==='admin')&&pwd==='admin'){
     overlay.hidden=true;appEl.hidden=false;
-    btn.disabled=false;btn.textContent='Sign in to HarborPoint';
-    return;
+    btn.disabled=false;btn.textContent='Sign in to HarborPoint';return;
   }
   try{
     const form=new FormData();form.append('usr',usr);form.append('pwd',pwd);
     const res=await fetch('/api/method/login',{method:'POST',body:form,credentials:'include'});
     if(res.ok){overlay.hidden=true;appEl.hidden=false;return;}
-    const data=await res.json().catch(()=>({}));
-    let msg='Invalid username or password.';
-    if(data._server_messages){try{msg=JSON.parse(JSON.parse(data._server_messages)[0]).message;}catch(e){}}
-    errEl.textContent=msg;errEl.hidden=false;
-  }catch(e){
-    overlay.hidden=true;appEl.hidden=false;
-  }finally{btn.disabled=false;btn.textContent='Sign in to HarborPoint';}
+    errEl.textContent='Invalid username or password.';errEl.hidden=false;
+  }catch(e){overlay.hidden=true;appEl.hidden=false;}
+  finally{btn.disabled=false;btn.textContent='Sign in to HarborPoint';}
 }
 async function doLogout(){
   try{await fetch('/api/method/logout',{method:'POST'});}catch(e){}
