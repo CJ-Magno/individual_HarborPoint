@@ -8,7 +8,13 @@ set -euo pipefail
 if [ -d "/home/frappe/frappe-bench/apps/frappe" ]; then
     cd /home/frappe/frappe-bench
 
-    # Deploy the standalone HarborPoint page on every start (no build required)
+    # Fix Redis socketio URL and remove socketio/redis from Procfile
+    bench set-redis-socketio-host redis://redis:6379 2>/dev/null || true
+    sed -i '/socketio/d' Procfile
+    sed -i '/redis/d' Procfile
+    sed -i '/watch/d' Procfile
+
+    # Deploy the standalone HarborPoint page (no build required)
     cp /workspace/insights-develop/docker/harborpoint.html apps/frappe/frappe/www/harborpoint.html
 
     exec bench start
