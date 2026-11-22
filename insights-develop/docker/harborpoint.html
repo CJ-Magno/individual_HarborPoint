@@ -251,14 +251,33 @@ const errEl=document.getElementById('login-error');
 const pwdEl=document.getElementById('pwd');
 document.getElementById('login-btn').addEventListener('click',doLogin);
 pwdEl.addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
-function doLogin(){
+async function doLogin(){
   const usr=document.getElementById('usr').value.trim();
   const pwd=pwdEl.value;
   errEl.hidden=true;
   if(!usr||!pwd){errEl.textContent='Please enter username and password.';errEl.hidden=false;return;}
-  overlay.hidden=true;appEl.hidden=false;
+  const btn=document.getElementById('login-btn');
+  btn.disabled=true;btn.textContent='Signing in…';
+  try{
+    const form=new FormData();form.append('usr',usr);form.append('pwd',pwd);
+    const res=await fetch('/api/method/login',{method:'POST',body:form});
+    const data=await res.json().catch(()=>({}));
+    if(res.ok&&data.message==='Logged In'){
+      overlay.hidden=true;appEl.hidden=false;return;
+    }
+    let msg='Invalid username or password.';
+    if(data._server_messages){try{msg=JSON.parse(JSON.parse(data._server_messages)[0]).message;}catch(e){}}
+    errEl.textContent=msg;errEl.hidden=false;
+  }catch(e){
+    // Standalone / demo mode — no Frappe server
+    overlay.hidden=true;appEl.hidden=false;
+  }finally{btn.disabled=false;btn.textContent='Sign in to HarborPoint';}
 }
-document.getElementById('logout-btn').addEventListener('click',()=>{appEl.hidden=true;overlay.hidden=false;pwdEl.value='';errEl.hidden=true;});
+async function doLogout(){
+  try{await fetch('/api/method/logout',{method:'POST'});}catch(e){}
+  appEl.hidden=true;overlay.hidden=false;pwdEl.value='';errEl.hidden=true;
+}
+document.getElementById('logout-btn').addEventListener('click',doLogout);
 </script>
 </body>
 </html>
