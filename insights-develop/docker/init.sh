@@ -33,20 +33,11 @@ bench set-redis-cache-host redis://redis:6379
 bench set-redis-queue-host redis://redis:6379
 bench set-redis-socketio-host redis://redis:6379
 
+sed -i '/socketio/d' ./Procfile
 sed -i '/redis/d' ./Procfile
 sed -i '/watch/d' ./Procfile
 
 bench get-app --skip-assets insights https://github.com/frappe/insights --branch main
-
-# Overlay HarborPoint custom UI files from workspace
-echo "Applying HarborPoint customizations..."
-cp -rf /workspace/insights-develop/frontend/src2/harborpoint apps/insights/frontend/src2/
-cp /workspace/insights-develop/frontend/src2/router.ts apps/insights/frontend/src2/router.ts
-cp /workspace/insights-develop/frontend/src2/components/AppSidebar.vue apps/insights/frontend/src2/components/AppSidebar.vue
-
-# Build the frontend (NODE_OPTIONS limits memory for t2.micro)
-echo "Building insights frontend..."
-NODE_OPTIONS="--max-old-space-size=1024" bench build --app insights
 
 bench new-site "${SITE_NAME}" \
   --force \
@@ -61,5 +52,8 @@ bench --site "${SITE_NAME}" set-config mute_emails 1
 bench --site "${SITE_NAME}" clear-cache
 bench use "${SITE_NAME}"
 bench --site "${SITE_NAME}" set-config home_page insights
+
+# Deploy the standalone HarborPoint page (no build required)
+cp /workspace/insights-develop/docker/harborpoint.html apps/frappe/frappe/www/harborpoint.html
 
 exec bench start
