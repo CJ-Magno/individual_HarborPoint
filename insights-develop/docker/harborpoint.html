@@ -19,7 +19,8 @@ body{font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:14px;color
 /* ── Frappe navbar ── */
 .frappe-navbar{background:#fff;border-bottom:1px solid var(--fp-border);padding:0;height:56px}
 .frappe-navbar .navbar-brand{font-weight:600;font-size:15px;color:var(--fp-text)!important;display:flex;align-items:center;gap:8px;padding:0}
-.frappe-navbar .navbar-brand .brand-mark{width:28px;height:28px;flex-shrink:0}
+.frappe-navbar .navbar-brand .brand-mark{width:28px;height:28px;flex-shrink:0;display:block}
+.login-logo .mark{width:40px;height:40px;flex-shrink:0;display:block}
 .frappe-navbar .nav-link{color:var(--fp-text)!important;font-size:13px;font-weight:500;padding:4px 10px!important}
 .frappe-navbar .nav-link:hover{color:var(--fp-blue)!important}
 .frappe-navbar .dropdown-menu{font-size:13px;border:1px solid var(--fp-border);box-shadow:0 4px 16px rgba(0,0,0,.08);border-radius:6px;padding:4px 0}
@@ -100,7 +101,7 @@ body{font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:14px;color
 .login-page{min-height:calc(100vh - 56px);display:flex;align-items:center;justify-content:center;padding:24px}
 .login-card{background:#fff;border:1px solid var(--fp-border);border-radius:8px;padding:40px 36px;width:100%;max-width:380px;box-shadow:0 2px 16px rgba(0,0,0,.06)}
 .login-logo{display:flex;align-items:center;gap:10px;margin-bottom:28px}
-.login-logo .mark{width:40px;height:40px;border-radius:8px;background:var(--fp-blue);display:grid;place-items:center;color:#fff;font-weight:700;font-size:14px}
+.login-logo .mark{width:40px;height:40px;flex-shrink:0;display:block}
 .login-logo strong{font-size:16px;font-weight:600;display:block;color:var(--fp-text)}
 .login-logo span{font-size:12px;color:var(--fp-muted)}
 .login-err{background:var(--fp-err-bg);color:var(--fp-err);border-radius:5px;padding:9px 12px;font-size:13px;margin-top:12px}
@@ -113,7 +114,7 @@ body{font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:14px;color
 <nav class="navbar frappe-navbar sticky-top">
   <div class="container">
     <a class="navbar-brand" href="/harborpoint">
-      <img class="brand-mark" src="/assets/frappe/images/frappe-favicon.svg" alt="Frappe">
+      <svg class="brand-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect rx="18" fill="#2490EF" width="100" height="100"/><text x="50" y="76" font-family="Arial,sans-serif" font-size="72" font-weight="700" fill="white" text-anchor="middle">F</text></svg>
       HarborPoint
     </a>
   </div>
@@ -121,7 +122,7 @@ body{font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:14px;color
 <div class="login-page">
   <div class="login-card">
     <div class="login-logo">
-      <div class="mark">HP</div>
+      <svg class="mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect rx="18" fill="#2490EF" width="100" height="100"/><text x="50" y="76" font-family="Arial,sans-serif" font-size="72" font-weight="700" fill="white" text-anchor="middle">F</text></svg>
       <div>
         <strong>HarborPoint</strong>
         <span>IT Asset Management</span>
@@ -172,7 +173,7 @@ document.getElementById('pwd').addEventListener('keydown',function(e){if(e.key==
 <nav class="navbar navbar-expand-lg frappe-navbar sticky-top">
   <div class="container">
     <a class="navbar-brand" href="/harborpoint">
-      <img class="brand-mark" src="/assets/frappe/images/frappe-favicon.svg" alt="Frappe">
+      <svg class="brand-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect rx="18" fill="#2490EF" width="100" height="100"/><text x="50" y="76" font-family="Arial,sans-serif" font-size="72" font-weight="700" fill="white" text-anchor="middle">F</text></svg>
       HarborPoint
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navMain">
