@@ -19,7 +19,7 @@ body{font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:14px;color
 /* ── Frappe navbar ── */
 .frappe-navbar{background:#fff;border-bottom:1px solid var(--fp-border);padding:0;height:56px}
 .frappe-navbar .navbar-brand{font-weight:600;font-size:15px;color:var(--fp-text)!important;display:flex;align-items:center;gap:8px;padding:0}
-.frappe-navbar .navbar-brand .brand-mark{width:30px;height:30px;border-radius:6px;background:var(--fp-blue);display:grid;place-items:center;color:#fff;font-weight:700;font-size:12px;flex-shrink:0}
+.frappe-navbar .navbar-brand .brand-mark{width:28px;height:28px;flex-shrink:0}
 .frappe-navbar .nav-link{color:var(--fp-text)!important;font-size:13px;font-weight:500;padding:4px 10px!important}
 .frappe-navbar .nav-link:hover{color:var(--fp-blue)!important}
 .frappe-navbar .dropdown-menu{font-size:13px;border:1px solid var(--fp-border);box-shadow:0 4px 16px rgba(0,0,0,.08);border-radius:6px;padding:4px 0}
@@ -113,7 +113,7 @@ body{font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:14px;color
 <nav class="navbar frappe-navbar sticky-top">
   <div class="container">
     <a class="navbar-brand" href="/harborpoint">
-      <div class="brand-mark">HP</div>
+      <img class="brand-mark" src="/assets/frappe/images/frappe-favicon.svg" alt="Frappe">
       HarborPoint
     </a>
   </div>
@@ -172,7 +172,7 @@ document.getElementById('pwd').addEventListener('keydown',function(e){if(e.key==
 <nav class="navbar navbar-expand-lg frappe-navbar sticky-top">
   <div class="container">
     <a class="navbar-brand" href="/harborpoint">
-      <div class="brand-mark">HP</div>
+      <img class="brand-mark" src="/assets/frappe/images/frappe-favicon.svg" alt="Frappe">
       HarborPoint
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navMain">
