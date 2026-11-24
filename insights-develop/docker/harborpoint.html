@@ -16,6 +16,24 @@
 *,*::before,*::after{box-sizing:border-box;margin:0}
 [hidden]{display:none!important}
 html,body{height:100%;font-family:var(--font-body);font-size:14px;color:var(--text);background:var(--bg)}
+/* ── login ── */
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg);padding:24px}
+.login-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:40px 36px;width:100%;max-width:380px;box-shadow:0 4px 24px rgba(0,0,0,.07)}
+.login-brand{display:flex;align-items:center;gap:12px;margin-bottom:28px}
+.login-mark{width:44px;height:44px;border-radius:50%;background:var(--hp-blue);display:grid;place-items:center;color:#fff;font-family:var(--font-head);font-weight:700;font-size:15px}
+.login-brand strong{font-family:var(--font-head);font-weight:600;font-size:16px;display:block}
+.login-brand span{color:var(--muted);font-size:12px}
+.login-card h2{font:600 20px var(--font-head);margin-bottom:6px}
+.login-card p{color:var(--muted);font-size:13px;margin-bottom:24px}
+.form-group{display:flex;flex-direction:column;gap:4px;margin-bottom:14px}
+.form-group label{font-size:12px;font-weight:600;color:var(--muted)}
+.form-group input{border:1px solid var(--border);border-radius:var(--r);padding:10px 12px;font:14px var(--font-body);color:var(--text);background:var(--bg);outline:none;transition:border-color .15s}
+.form-group input:focus{border-color:var(--hp-blue)}
+.login-btn{width:100%;background:var(--hp-blue);color:#fff;border:none;border-radius:var(--r);padding:11px;font:600 14px var(--font-body);cursor:pointer;margin-top:4px;transition:opacity .15s}
+.login-btn:hover{opacity:.88}
+.login-btn:disabled{opacity:.6;cursor:not-allowed}
+.login-err{background:var(--err-bg);color:var(--err);border-radius:var(--r);padding:9px 12px;font-size:13px;margin-top:12px}
+/* ── app ── */
 #app{display:flex;flex-direction:column;min-height:100%}
 header{position:sticky;top:0;background:var(--surface);border-bottom:1px solid var(--border);
   display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;z-index:10}
@@ -33,7 +51,7 @@ header{position:sticky;top:0;background:var(--surface);border-bottom:1px solid v
 .btn-danger{background:var(--err-bg);color:var(--err)}
 main{flex:1;overflow:auto;padding:24px 16px 32px;display:flex;flex-direction:column;gap:20px}
 .sec-head{margin-bottom:12px}
-.sec-head h2{font:600 15px var(--font-head);color:var(--text)}
+.sec-head h2{font:600 15px var(--font-head)}
 .sec-head p{color:var(--muted);font-size:12px;margin-top:2px}
 .kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
 .kpi-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:4px}
@@ -87,16 +105,64 @@ td.asset-id{font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
 .modal-box{background:var(--surface);border-radius:10px;width:100%;max-width:480px;padding:28px;box-shadow:0 16px 48px rgba(0,0,0,.2)}
 .modal-box h3{font:700 16px var(--font-head);margin-bottom:20px;color:var(--text)}
 .modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.form-group{display:flex;flex-direction:column;gap:4px}
-.form-group label{font-size:12px;font-weight:600;color:var(--muted)}
-.form-group input,.form-group select{border:1px solid var(--border);border-radius:var(--r);padding:8px 10px;font:13px var(--font-body);color:var(--text);background:var(--bg);outline:none;transition:border-color .15s}
-.form-group input:focus,.form-group select:focus{border-color:var(--hp-blue)}
 .modal-footer{display:flex;justify-content:flex-end;gap:8px;margin-top:20px}
 .toast{position:fixed;bottom:24px;right:24px;background:var(--text);color:var(--surface);padding:10px 18px;border-radius:var(--r);font-size:13px;font-weight:500;z-index:300;opacity:0;transition:opacity .2s}
 .toast.show{opacity:1}
 </style>
 </head>
 <body>
+
+{% if is_guest %}
+<div class="login-wrap">
+  <div class="login-card">
+    <div class="login-brand">
+      <div class="login-mark">HP</div>
+      <div>
+        <strong>HarborPoint</strong>
+        <span>IT Asset Management</span>
+      </div>
+    </div>
+    <h2>Sign in</h2>
+    <p>Use your Frappe account to continue.</p>
+    <div class="form-group">
+      <label>Username</label>
+      <input id="usr" type="text" value="Administrator" autocomplete="username">
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input id="pwd" type="password" autocomplete="current-password">
+    </div>
+    <button class="login-btn" id="login-btn" onclick="doLogin()">Sign in</button>
+    <div class="login-err" id="login-err" hidden></div>
+  </div>
+</div>
+<script>
+function doLogin(){
+  var usr=document.getElementById('usr').value.trim();
+  var pwd=document.getElementById('pwd').value;
+  var btn=document.getElementById('login-btn');
+  var err=document.getElementById('login-err');
+  if(!usr||!pwd){err.textContent='Enter username and password.';err.hidden=false;return;}
+  btn.disabled=true;btn.textContent='Signing in…';err.hidden=true;
+  fetch('/api/method/login',{
+    method:'POST',
+    headers:{'Content-Type':'application/x-www-form-urlencoded','X-Frappe-CSRF-Token':'fetch'},
+    credentials:'include',
+    body:'usr='+encodeURIComponent(usr)+'&pwd='+encodeURIComponent(pwd)
+  }).then(function(r){
+    var ok=r.ok||r.status===200||r.status===302;
+    return r.json().then(function(d){
+      if(ok&&d&&(d.message==='Logged In'||d.home_page)){window.location.reload();}
+      else{err.textContent='Incorrect username or password.';err.hidden=false;btn.disabled=false;btn.textContent='Sign in';}
+    }).catch(function(){
+      if(ok){window.location.reload();}
+      else{err.textContent='Login failed. Try again.';err.hidden=false;btn.disabled=false;btn.textContent='Sign in';}
+    });
+  }).catch(function(){err.textContent='Network error. Try again.';err.hidden=false;btn.disabled=false;btn.textContent='Sign in';});
+}
+document.getElementById('pwd').addEventListener('keydown',function(e){if(e.key==='Enter')doLogin();});
+</script>
+{% else %}
 <div id="app">
   <header>
     <div class="brand">
@@ -153,7 +219,7 @@ td.asset-id{font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
           <p style="color:var(--muted);font-size:12px;margin-top:2px">Add, edit, and track all IT assets.</p>
         </div>
         <div class="toolbar-right">
-          <input class="search-input" id="search-input" type="search" placeholder="Search assets…">
+          <input class="search-input" id="search-input" type="search" placeholder="Search assets&hellip;">
           <select class="filter-select" id="status-filter">
             <option value="All">All statuses</option>
             <option value="Assigned">Assigned</option>
@@ -206,8 +272,8 @@ td.asset-id{font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
 
 <div class="toast" id="toast"></div>
 <script>
-const STORAGE_KEY='hp_assets_v1';
-const DEFAULT_ASSETS=[
+var STORAGE_KEY='hp_assets_v1';
+var DEFAULT_ASSETS=[
   {id:'HPL-LT-0042',type:'Laptop',custodian:'Maria Santos',location:'Calapan HQ',status:'Assigned',next:'Review in 90 days'},
   {id:'HPL-LT-0088',type:'Laptop',custodian:'IT Service Desk',location:'Batangas Branch',status:'Loaner',next:'Return due 12 Aug'},
   {id:'HPL-DT-0131',type:'Desktop',custodian:'Jose Dela Cruz',location:'Quezon City Office',status:'Repair',next:'Warranty check'},
@@ -215,7 +281,7 @@ const DEFAULT_ASSETS=[
   {id:'HPL-LT-0054',type:'Laptop',custodian:'Ana Reyes',location:'Calapan HQ',status:'Assigned',next:'Review in 60 days'},
   {id:'HPL-DT-0099',type:'Desktop',custodian:'IT Service Desk',location:'Batangas Branch',status:'Loaner',next:'Return due 20 Aug'},
 ];
-const LIFECYCLE=[
+var LIFECYCLE=[
   {name:'Procurement & intake',asIs:'Manual entry after delivery; approvals use email.',toBe:'Centralized receipt and approval workflow.'},
   {name:'Assignment & check-out',asIs:'Requests and handoff are linked, but acceptance varies.',toBe:'Required digital acceptance before closure.'},
   {name:'Movement & transfer',asIs:'Locations and loaners are updated manually.',toBe:'Transfer rules and return dates are enforced.'},
@@ -223,61 +289,61 @@ const LIFECYCLE=[
   {name:'Software licensing',asIs:'Availability and renewals rely partly on reminders.',toBe:'Automated lifecycle and renewal alerts.'},
   {name:'Retirement & disposal',asIs:'Disposal and erasure evidence is stored separately.',toBe:'One asset record with auditable evidence.'},
 ];
-const PAIN=[
+var PAIN=[
   {id:'P1',title:'Delayed intake visibility',detail:'Assets can remain unregistered for several days after delivery.'},
   {id:'P4',title:'Missing digital acceptance',detail:'Equipment may be released before accountability is complete.'},
   {id:'P6',title:'Loaner tracking gap',detail:'Separate tracking makes return dates difficult to monitor.'},
   {id:'P9',title:'Renewal dependency',detail:'License renewals partly depend on personal calendar reminders.'},
   {id:'P10',title:'Erasure evidence gap',detail:'Data-erasure proof is stored outside the asset record.'},
 ];
-const SC={Assigned:'s-assigned',Loaner:'s-loaner',Repair:'s-repair',Retirement:'s-retirement'};
-function loadAssets(){try{const d=localStorage.getItem(STORAGE_KEY);return d?JSON.parse(d):DEFAULT_ASSETS.map(a=>({...a}));}catch(e){return DEFAULT_ASSETS.map(a=>({...a}));}}
+var SC={Assigned:'s-assigned',Loaner:'s-loaner',Repair:'s-repair',Retirement:'s-retirement'};
+function loadAssets(){try{var d=localStorage.getItem(STORAGE_KEY);return d?JSON.parse(d):DEFAULT_ASSETS.map(function(a){return Object.assign({},a);});}catch(e){return DEFAULT_ASSETS.map(function(a){return Object.assign({},a);});}}
 function saveAssets(arr){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(arr));}catch(e){}}
-let assets=loadAssets(),editingId=null,deleteId=null;
+var assets=loadAssets(),editingId=null,deleteId=null;
 function updateKPIs(){
   document.getElementById('kpi-total').textContent=assets.length;
-  document.getElementById('kpi-assigned').textContent=assets.filter(a=>a.status==='Assigned').length;
-  document.getElementById('kpi-loaner').textContent=assets.filter(a=>a.status==='Loaner').length;
-  document.getElementById('kpi-attention').textContent=assets.filter(a=>a.status==='Repair'||a.status==='Retirement').length;
+  document.getElementById('kpi-assigned').textContent=assets.filter(function(a){return a.status==='Assigned';}).length;
+  document.getElementById('kpi-loaner').textContent=assets.filter(function(a){return a.status==='Loaner';}).length;
+  document.getElementById('kpi-attention').textContent=assets.filter(function(a){return a.status==='Repair'||a.status==='Retirement';}).length;
 }
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function renderTable(){
-  const filter=document.getElementById('status-filter').value;
-  const q=document.getElementById('search-input').value.toLowerCase().trim();
-  const tbody=document.getElementById('asset-tbody');tbody.innerHTML='';
-  let rows=assets;
-  if(filter!=='All')rows=rows.filter(a=>a.status===filter);
-  if(q)rows=rows.filter(a=>[a.id,a.type,a.custodian,a.location,a.next].join(' ').toLowerCase().includes(q));
+  var filter=document.getElementById('status-filter').value;
+  var q=document.getElementById('search-input').value.toLowerCase().trim();
+  var tbody=document.getElementById('asset-tbody');tbody.innerHTML='';
+  var rows=assets.slice();
+  if(filter!=='All')rows=rows.filter(function(a){return a.status===filter;});
+  if(q)rows=rows.filter(function(a){return [a.id,a.type,a.custodian,a.location,a.next].join(' ').toLowerCase().indexOf(q)!==-1;});
   if(!rows.length){tbody.innerHTML='<tr class="empty-row"><td colspan="7">No assets match.</td></tr>';return;}
-  rows.forEach(a=>{
-    const tr=document.createElement('tr');
-    tr.innerHTML=`<td class="asset-id">${esc(a.id)}</td><td>${esc(a.type)}</td><td>${esc(a.custodian)}</td><td>${esc(a.location)}</td>`+
-      `<td><span class="status-pill ${SC[a.status]||'s-assigned'}">${esc(a.status)}</span></td><td>${esc(a.next)}</td>`+
-      `<td><div class="action-cell"><button class="btn btn-ghost btn-sm" onclick="openEdit('${esc(a.id)}')">Edit</button>`+
-      `<button class="btn btn-danger btn-sm" onclick="openDelete('${esc(a.id)}')">Delete</button></div></td>`;
+  rows.forEach(function(a){
+    var tr=document.createElement('tr');
+    tr.innerHTML='<td class="asset-id">'+esc(a.id)+'</td><td>'+esc(a.type)+'</td><td>'+esc(a.custodian)+'</td><td>'+esc(a.location)+'</td>'+
+      '<td><span class="status-pill '+(SC[a.status]||'s-assigned')+'">'+esc(a.status)+'</span></td><td>'+esc(a.next)+'</td>'+
+      '<td><div class="action-cell"><button class="btn btn-ghost btn-sm" onclick="openEdit(\''+esc(a.id)+'\')">Edit</button>'+
+      '<button class="btn btn-danger btn-sm" onclick="openDelete(\''+esc(a.id)+'\')">Delete</button></div></td>';
     tbody.appendChild(tr);
   });
 }
 function openAdd(){editingId=null;document.getElementById('modal-title').textContent='Add Asset';document.getElementById('f-id').value='HPL-LT-'+(String(assets.length+1).padStart(4,'0'));document.getElementById('f-id').disabled=false;document.getElementById('f-custodian').value='';document.getElementById('f-next').value='Review in 90 days';document.getElementById('asset-modal').hidden=false;}
-function openEdit(id){const a=assets.find(x=>x.id===id);if(!a)return;editingId=id;document.getElementById('modal-title').textContent='Edit Asset';document.getElementById('f-id').value=a.id;document.getElementById('f-id').disabled=true;document.getElementById('f-type').value=a.type;document.getElementById('f-custodian').value=a.custodian;document.getElementById('f-location').value=a.location;document.getElementById('f-status').value=a.status;document.getElementById('f-next').value=a.next;document.getElementById('asset-modal').hidden=false;}
+function openEdit(id){var a=assets.find(function(x){return x.id===id;});if(!a)return;editingId=id;document.getElementById('modal-title').textContent='Edit Asset';document.getElementById('f-id').value=a.id;document.getElementById('f-id').disabled=true;document.getElementById('f-type').value=a.type;document.getElementById('f-custodian').value=a.custodian;document.getElementById('f-location').value=a.location;document.getElementById('f-status').value=a.status;document.getElementById('f-next').value=a.next;document.getElementById('asset-modal').hidden=false;}
 function closeModal(){document.getElementById('asset-modal').hidden=true;editingId=null;}
 function openDelete(id){deleteId=id;document.getElementById('confirm-asset-id').textContent=id;document.getElementById('confirm-modal').hidden=false;}
 function closeConfirm(){document.getElementById('confirm-modal').hidden=true;deleteId=null;}
 function saveAsset(){
-  const id=document.getElementById('f-id').value.trim();
+  var id=document.getElementById('f-id').value.trim();
   if(!id){showToast('Asset ID is required.');return;}
-  const rec={id,type:document.getElementById('f-type').value,custodian:document.getElementById('f-custodian').value.trim()||'Unassigned',location:document.getElementById('f-location').value,status:document.getElementById('f-status').value,next:document.getElementById('f-next').value.trim()||'—'};
-  if(editingId){const idx=assets.findIndex(a=>a.id===editingId);if(idx>-1)assets[idx]=rec;showToast('Asset updated.');}
-  else{if(assets.find(a=>a.id===id)){showToast('Asset ID already exists.');return;}assets.push(rec);showToast('Asset added.');}
+  var rec={id:id,type:document.getElementById('f-type').value,custodian:document.getElementById('f-custodian').value.trim()||'Unassigned',location:document.getElementById('f-location').value,status:document.getElementById('f-status').value,next:document.getElementById('f-next').value.trim()||'—'};
+  if(editingId){var idx=assets.findIndex(function(a){return a.id===editingId;});if(idx>-1)assets[idx]=rec;showToast('Asset updated.');}
+  else{if(assets.find(function(a){return a.id===id;})){showToast('Asset ID already exists.');return;}assets.push(rec);showToast('Asset added.');}
   saveAssets(assets);updateKPIs();renderTable();closeModal();
 }
-function confirmDelete(){assets=assets.filter(a=>a.id!==deleteId);saveAssets(assets);updateKPIs();renderTable();showToast('Asset deleted.');closeConfirm();}
-function exportCSV(){const rows=assets.map(a=>[a.id,a.type,a.custodian,a.location,a.status,a.next].map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(','));const csv=['Asset ID,Type,Custodian,Location,Status,Next Action',...rows].join('\n');const el=document.createElement('a');el.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);el.download='harborpoint-assets.csv';el.click();showToast('Exported CSV.');}
-function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
-const lcGrid=document.getElementById('lifecycle-grid');
-LIFECYCLE.forEach((s,i)=>{const d=document.createElement('div');d.className='lifecycle-card risk';d.innerHTML=`<span class="lc-eyebrow">0${i+1} <span class="gap-tag">Gap</span></span><div class="lc-name">${s.name}</div><div class="lc-asis">${s.asIs}</div><div class="lc-tobe">To-be: ${s.toBe}</div>`;lcGrid.appendChild(d);});
-const painList=document.getElementById('pain-list');
-PAIN.forEach(p=>{const d=document.createElement('div');d.className='pain-row';d.innerHTML=`<span class="pain-id">${p.id}</span><div><div class="pain-title">${p.title}</div><div class="pain-detail">${p.detail}</div></div>`;painList.appendChild(d);});
+function confirmDelete(){assets=assets.filter(function(a){return a.id!==deleteId;});saveAssets(assets);updateKPIs();renderTable();showToast('Asset deleted.');closeConfirm();}
+function exportCSV(){var rows=assets.map(function(a){return [a.id,a.type,a.custodian,a.location,a.status,a.next].map(function(v){return '"'+String(v).replace(/"/g,'""')+'"';}).join(',');});var csv=['Asset ID,Type,Custodian,Location,Status,Next Action'].concat(rows).join('\n');var el=document.createElement('a');el.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);el.download='harborpoint-assets.csv';el.click();showToast('Exported CSV.');}
+function showToast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2500);}
+var lcGrid=document.getElementById('lifecycle-grid');
+LIFECYCLE.forEach(function(s,i){var d=document.createElement('div');d.className='lifecycle-card risk';d.innerHTML='<span class="lc-eyebrow">0'+(i+1)+' <span class="gap-tag">Gap</span></span><div class="lc-name">'+s.name+'</div><div class="lc-asis">'+s.asIs+'</div><div class="lc-tobe">To-be: '+s.toBe+'</div>';lcGrid.appendChild(d);});
+var painList=document.getElementById('pain-list');
+PAIN.forEach(function(p){var d=document.createElement('div');d.className='pain-row';d.innerHTML='<span class="pain-id">'+p.id+'</span><div><div class="pain-title">'+p.title+'</div><div class="pain-detail">'+p.detail+'</div></div>';painList.appendChild(d);});
 document.getElementById('status-filter').addEventListener('change',renderTable);
 document.getElementById('search-input').addEventListener('input',renderTable);
 document.getElementById('add-asset-btn').addEventListener('click',openAdd);
@@ -286,12 +352,13 @@ document.getElementById('modal-save').addEventListener('click',saveAsset);
 document.getElementById('confirm-cancel').addEventListener('click',closeConfirm);
 document.getElementById('confirm-delete').addEventListener('click',confirmDelete);
 document.getElementById('export-btn').addEventListener('click',exportCSV);
-document.getElementById('asset-modal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal();});
-document.getElementById('confirm-modal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeConfirm();});
-const intakePanel=document.getElementById('intake-panel');
-const toggleBtn=document.getElementById('toggle-intake');
-toggleBtn.addEventListener('click',()=>{const open=!intakePanel.hidden;intakePanel.hidden=open;toggleBtn.textContent=open?'Record intake':'Close intake';});
+document.getElementById('asset-modal').addEventListener('click',function(e){if(e.target===e.currentTarget)closeModal();});
+document.getElementById('confirm-modal').addEventListener('click',function(e){if(e.target===e.currentTarget)closeConfirm();});
+var intakePanel=document.getElementById('intake-panel');
+var toggleBtn=document.getElementById('toggle-intake');
+toggleBtn.addEventListener('click',function(){var open=!intakePanel.hidden;intakePanel.hidden=open;toggleBtn.textContent=open?'Record intake':'Close intake';});
 updateKPIs();renderTable();
 </script>
+{% endif %}
 </body>
 </html>

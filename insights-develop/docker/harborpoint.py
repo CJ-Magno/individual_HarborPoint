@@ -1,7 +1,5 @@
 import frappe
 
 def get_context(context):
-    if frappe.session.user == "Guest":
-        frappe.local.flags.redirect_location = "/login?redirect-to=/harborpoint"
-        raise frappe.Redirect
+    context.is_guest = frappe.session.user == "Guest"
     context.no_cache = 1
