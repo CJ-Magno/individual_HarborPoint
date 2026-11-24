@@ -2,8 +2,6 @@ import frappe
 
 def get_context(context):
     if frappe.session.user == "Guest":
-        frappe.throw(
-            frappe._("You must be logged in to access HarborPoint."),
-            frappe.PermissionError
-        )
+        frappe.local.flags.redirect_location = "/login?redirect-to=/harborpoint"
+        raise frappe.Redirect
     context.no_cache = 1
