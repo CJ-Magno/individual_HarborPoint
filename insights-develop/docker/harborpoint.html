@@ -4,141 +4,147 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>HarborPoint — IT Asset Management</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
 <style>
-/* Frappe-matching tokens */
-:root{
-  --fp-blue:#2490ef;--fp-blue-dark:#1c74c4;--fp-text:#1f272e;--fp-muted:#6c757d;
-  --fp-border:#d1d8dd;--fp-bg:#f8f8f8;--fp-surface:#fff;
-  --fp-ok:#28a745;--fp-ok-bg:#d4edda;--fp-warn:#ffc107;--fp-warn-bg:#fff3cd;
-  --fp-err:#dc3545;--fp-err-bg:#f8d7da;--fp-info:#17a2b8;--fp-info-bg:#d1ecf1;
-}
-body{font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:14px;color:var(--fp-text);background:var(--fp-bg)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 [hidden]{display:none!important}
-/* ── Frappe navbar ── */
-.frappe-navbar{background:#fff;border-bottom:1px solid var(--fp-border);padding:0;height:56px}
-.frappe-navbar .navbar-brand{font-weight:600;font-size:15px;color:var(--fp-text)!important;display:flex;align-items:center;gap:8px;padding:0}
-.frappe-navbar .navbar-brand .brand-mark{width:28px;height:28px;flex-shrink:0;display:block}
-.login-logo .mark{width:40px;height:40px;flex-shrink:0;display:block}
-.frappe-navbar .nav-link{color:var(--fp-text)!important;font-size:13px;font-weight:500;padding:4px 10px!important}
-.frappe-navbar .nav-link:hover{color:var(--fp-blue)!important}
-.frappe-navbar .dropdown-menu{font-size:13px;border:1px solid var(--fp-border);box-shadow:0 4px 16px rgba(0,0,0,.08);border-radius:6px;padding:4px 0}
-.frappe-navbar .dropdown-item{padding:7px 16px;color:var(--fp-text)}
-.frappe-navbar .dropdown-item:hover{background:#f0f4f8;color:var(--fp-blue)}
-.frappe-navbar .navbar-toggler{border-color:var(--fp-border)}
-/* page wrapper */
-.page-wrapper{padding:24px 0 48px}
-/* section heading */
-.section-title{font-size:14px;font-weight:600;color:var(--fp-text);margin-bottom:4px}
-.section-desc{font-size:12px;color:var(--fp-muted);margin-bottom:16px}
-/* kpi cards */
-.kpi-card{background:#fff;border:1px solid var(--fp-border);border-radius:6px;padding:18px 20px}
-.kpi-label{font-size:11px;font-weight:600;color:var(--fp-muted);text-transform:uppercase;letter-spacing:.04em}
-.kpi-value{font-size:28px;font-weight:700;color:var(--fp-text);line-height:1.1;margin:6px 0 4px;font-variant-numeric:tabular-nums}
-.kpi-detail{font-size:12px;color:var(--fp-muted)}
-/* panel */
-.fp-card{background:#fff;border:1px solid var(--fp-border);border-radius:6px}
-.fp-card-body{padding:20px}
-.fp-card-header{padding:16px 20px 0;border-bottom:1px solid var(--fp-border);display:flex;align-items:center;justify-content:space-between}
-.fp-card-title{font-size:14px;font-weight:600;color:var(--fp-text)}
-.fp-card-subtitle{font-size:12px;color:var(--fp-muted);margin-top:2px}
-/* badges */
-.badge-ok{background:var(--fp-ok-bg);color:var(--fp-ok);font-size:11px;font-weight:600;padding:3px 10px;border-radius:999px;display:inline-block}
-.badge-warn{background:var(--fp-warn-bg);color:#856404;font-size:11px;font-weight:600;padding:3px 10px;border-radius:999px;display:inline-block}
-/* lifecycle grid */
-.lc-item{border:1px solid var(--fp-border);border-radius:6px;padding:14px;background:#fff}
-.lc-item.has-gap{border-color:#ffc107;background:var(--fp-warn-bg)}
-.lc-step{font-size:11px;color:var(--fp-muted);font-weight:600;letter-spacing:.04em;text-transform:uppercase}
-.lc-name{font-size:13px;font-weight:600;color:var(--fp-text);margin:6px 0 4px}
-.lc-asis{font-size:12px;color:var(--fp-muted);line-height:1.5}
-.lc-tobe{font-size:11px;color:var(--fp-ok);margin-top:8px}
+html,body{height:100%;font-family:'Inter',system-ui,sans-serif;font-size:14px;color:#171717;background:#f8f8f8;overflow:hidden}
+
+/* ─── Frappe Desk topbar ─── */
+.desk-topbar{height:52px;background:#171717;display:flex;align-items:center;padding:0 12px;gap:8px;flex-shrink:0;z-index:100}
+.topbar-logo{width:32px;height:32px;flex-shrink:0;display:block}
+.topbar-search{flex:1;max-width:360px;margin:0 auto;position:relative}
+.topbar-search input{width:100%;background:#2d2d2d;border:1px solid #3a3a3a;border-radius:5px;padding:6px 10px 6px 32px;font:13px 'Inter',sans-serif;color:#e0e0e0;outline:none}
+.topbar-search input::placeholder{color:#888}
+.topbar-search .search-icon{position:absolute;left:9px;top:50%;transform:translateY(-50%);color:#888;font-size:13px}
+.topbar-right{display:flex;align-items:center;gap:4px;margin-left:auto}
+.topbar-btn{background:none;border:none;cursor:pointer;color:#a0a0a0;padding:6px 8px;border-radius:5px;font:500 13px 'Inter',sans-serif;display:flex;align-items:center;gap:4px}
+.topbar-btn:hover{background:#2d2d2d;color:#fff}
+.topbar-avatar{width:28px;height:28px;border-radius:50%;background:#2490ef;color:#fff;font-weight:600;font-size:12px;display:grid;place-items:center;cursor:pointer;flex-shrink:0}
+
+/* ─── Layout ─── */
+.desk-wrap{display:flex;flex-direction:column;height:100vh}
+.desk-body{display:flex;flex:1;overflow:hidden}
+
+/* ─── Sidebar ─── */
+.desk-sidebar{width:220px;background:#fff;border-right:1px solid #ebeff5;display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
+.sidebar-module{display:flex;align-items:center;gap:8px;padding:14px 16px 10px;font-weight:600;font-size:14px;color:#171717;border-bottom:1px solid #ebeff5}
+.sidebar-module .menu-icon{font-size:16px;line-height:1}
+.sidebar-section{padding:12px 16px 4px;font-size:11px;font-weight:600;color:#8d99a6;letter-spacing:.05em;text-transform:uppercase}
+.sidebar-item{display:flex;align-items:center;gap:10px;padding:8px 16px;font-size:13px;color:#4a5568;cursor:pointer;border-radius:0;transition:background .12s}
+.sidebar-item:hover{background:#f5f7fa;color:#171717}
+.sidebar-item.active{background:#f0f4ff;color:#2490ef;font-weight:500}
+.sidebar-item .item-icon{width:16px;text-align:center;flex-shrink:0;opacity:.6}
+.sidebar-item.active .item-icon{opacity:1}
+
+/* ─── Main content ─── */
+.desk-main{flex:1;overflow-y:auto;background:#f8f8f8;padding:20px 24px 40px}
+.page-title{font-size:20px;font-weight:700;color:#171717;margin-bottom:20px}
+
+/* ─── Desk cards ─── */
+.desk-card{background:#fff;border:1px solid #ebeff5;border-radius:6px;margin-bottom:20px}
+.desk-card-head{padding:14px 20px;border-bottom:1px solid #ebeff5;display:flex;align-items:center;justify-content:space-between}
+.desk-card-title{font-size:13px;font-weight:600;color:#171717}
+.desk-card-subtitle{font-size:12px;color:#8d99a6;margin-top:2px}
+.desk-card-body{padding:16px 20px}
+
+/* ─── KPI row ─── */
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:20px}
+.kpi-tile{background:#fff;border:1px solid #ebeff5;border-radius:6px;padding:16px}
+.kpi-label{font-size:11px;font-weight:600;color:#8d99a6;text-transform:uppercase;letter-spacing:.04em}
+.kpi-val{font-size:28px;font-weight:700;color:#171717;line-height:1.1;margin:6px 0 2px;font-variant-numeric:tabular-nums}
+.kpi-sub{font-size:11px;color:#aab5c0}
+
+/* ─── Badges ─── */
+.badge-ok{background:#d4edda;color:#155724;font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px}
+.badge-warn{background:#fff3cd;color:#856404;font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px}
+.badge-info{background:#cce5ff;color:#004085;font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px}
+.badge-err{background:#f8d7da;color:#721c24;font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px}
+
+/* ─── Lifecycle grid ─── */
+.lc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+.lc-item{border:1px solid #ffc107;background:#fff3cd;border-radius:5px;padding:12px}
+.lc-step{font-size:11px;font-weight:600;color:#8d99a6;letter-spacing:.04em;text-transform:uppercase}
+.lc-name{font-size:13px;font-weight:600;color:#171717;margin:5px 0 4px}
+.lc-asis{font-size:12px;color:#4a5568;line-height:1.4}
+.lc-tobe{font-size:11px;color:#155724;margin-top:8px}
 .lc-gap{font-size:11px;font-weight:600;color:#856404;float:right}
-/* pain points */
-.pain-id{background:var(--fp-err-bg);color:var(--fp-err);font-size:11px;font-weight:600;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px}
-.pain-title{font-size:13px;font-weight:600;color:var(--fp-text)}
-.pain-detail{font-size:12px;color:var(--fp-muted);margin-top:2px}
-/* intake steps */
-.intake-step{background:var(--fp-bg);border-radius:6px;padding:10px 14px;font-size:13px;display:flex;align-items:flex-start;gap:8px}
-.dot-warn{width:8px;height:8px;border-radius:50%;background:var(--fp-warn);flex-shrink:0;margin-top:4px}
-/* table */
-.fp-table{width:100%;border-collapse:collapse;min-width:720px;font-size:13px}
-.fp-table thead th{text-align:left;font-size:11px;font-weight:600;color:var(--fp-muted);text-transform:uppercase;letter-spacing:.05em;padding:10px 14px;border-bottom:1px solid var(--fp-border)}
-.fp-table tbody tr{border-bottom:1px solid var(--fp-border)}
-.fp-table tbody tr:last-child{border-bottom:none}
-.fp-table tbody tr:hover{background:#f8fafc}
-.fp-table tbody td{padding:10px 14px;color:var(--fp-muted);vertical-align:middle}
-.fp-table td.id-cell{font-weight:600;color:var(--fp-text);font-variant-numeric:tabular-nums}
-.status-pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:11px;font-weight:600}
-.s-assigned{background:var(--fp-ok-bg);color:var(--fp-ok)}
-.s-loaner{background:var(--fp-info-bg);color:var(--fp-info)}
-.s-repair{background:var(--fp-warn-bg);color:#856404}
-.s-retirement{background:var(--fp-err-bg);color:var(--fp-err)}
-.empty-row td{text-align:center;padding:28px;color:var(--fp-muted)}
-/* toolbar */
+
+/* ─── Pain points ─── */
+.pain-row{display:flex;gap:10px;margin-bottom:12px;align-items:flex-start}
+.pain-id{flex-shrink:0;background:#f8d7da;color:#721c24;font-size:11px;font-weight:600;padding:2px 7px;border-radius:4px;margin-top:1px}
+.pain-title{font-size:13px;font-weight:600;color:#171717}
+.pain-detail{font-size:12px;color:#6c757d;margin-top:2px}
+
+/* ─── Intake steps ─── */
+.intake-step{background:#f8f8f8;border-radius:5px;padding:10px 12px;font-size:13px;display:flex;align-items:flex-start;gap:8px;margin-bottom:8px}
+.dot-warn{width:8px;height:8px;border-radius:50%;background:#ffc107;flex-shrink:0;margin-top:4px}
+
+/* ─── Table ─── */
 .table-toolbar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:14px}
-.search-input{border:1px solid var(--fp-border);border-radius:5px;padding:5px 10px;font-size:13px;color:var(--fp-text);outline:none;width:200px;transition:border-color .15s}
-.search-input:focus{border-color:var(--fp-blue)}
-.filter-select{border:1px solid var(--fp-border);border-radius:5px;padding:5px 10px;font-size:13px;color:var(--fp-text);background:#fff}
-.btn-fp{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:5px;border:1px solid var(--fp-border);cursor:pointer;font:500 13px 'Inter',sans-serif;background:#fff;color:var(--fp-text);transition:background .15s,border-color .15s}
-.btn-fp:hover{background:var(--fp-bg);border-color:#adb5bd}
-.btn-fp-primary{background:var(--fp-blue);border-color:var(--fp-blue);color:#fff}
-.btn-fp-primary:hover{background:var(--fp-blue-dark);border-color:var(--fp-blue-dark)}
-.btn-fp-danger{background:var(--fp-err-bg);border-color:var(--fp-err);color:var(--fp-err)}
-.btn-fp-xs{padding:3px 8px;font-size:12px}
-/* modal */
-.fp-modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:1050;display:flex;align-items:center;justify-content:center;padding:16px}
-.fp-modal{background:#fff;border-radius:8px;width:100%;max-width:480px;padding:28px;box-shadow:0 8px 40px rgba(0,0,0,.18)}
-.fp-modal h5{font-size:16px;font-weight:600;margin-bottom:20px}
-.fp-modal-sm{max-width:360px}
-.fp-label{font-size:12px;font-weight:600;color:var(--fp-muted);display:block;margin-bottom:4px}
-.fp-input,.fp-select{display:block;width:100%;border:1px solid var(--fp-border);border-radius:5px;padding:8px 10px;font:13px 'Inter',sans-serif;color:var(--fp-text);background:#fff;outline:none;transition:border-color .15s}
-.fp-input:focus,.fp-select:focus{border-color:var(--fp-blue);box-shadow:0 0 0 2px rgba(36,144,239,.15)}
-/* toast */
-.fp-toast{position:fixed;bottom:20px;right:20px;background:var(--fp-text);color:#fff;padding:10px 18px;border-radius:6px;font-size:13px;font-weight:500;z-index:2000;opacity:0;transition:opacity .2s;pointer-events:none}
-.fp-toast.show{opacity:1}
-/* login page */
-.login-page{min-height:calc(100vh - 56px);display:flex;align-items:center;justify-content:center;padding:24px}
-.login-card{background:#fff;border:1px solid var(--fp-border);border-radius:8px;padding:40px 36px;width:100%;max-width:380px;box-shadow:0 2px 16px rgba(0,0,0,.06)}
+.desk-search-input{border:1px solid #e0e0e0;border-radius:5px;padding:5px 10px;font:13px 'Inter',sans-serif;color:#171717;outline:none;width:200px}
+.desk-search-input:focus{border-color:#2490ef}
+.desk-select{border:1px solid #e0e0e0;border-radius:5px;padding:5px 10px;font:13px 'Inter',sans-serif;color:#171717;background:#fff}
+.btn-desk{display:inline-flex;align-items:center;gap:4px;padding:5px 12px;border-radius:5px;border:1px solid #e0e0e0;cursor:pointer;font:500 13px 'Inter',sans-serif;background:#fff;color:#171717;transition:background .12s}
+.btn-desk:hover{background:#f5f7fa}
+.btn-desk-primary{background:#2490ef;border-color:#2490ef;color:#fff}
+.btn-desk-primary:hover{background:#1c74c4;border-color:#1c74c4}
+.btn-desk-danger{background:#f8d7da;border-color:#dc3545;color:#dc3545}
+.btn-xs{padding:3px 8px;font-size:12px}
+.desk-table{width:100%;border-collapse:collapse;min-width:720px;font-size:13px}
+.desk-table thead th{text-align:left;font-size:11px;font-weight:600;color:#8d99a6;text-transform:uppercase;letter-spacing:.05em;padding:10px 12px;border-bottom:1px solid #ebeff5}
+.desk-table tbody tr{border-bottom:1px solid #ebeff5}
+.desk-table tbody tr:last-child{border-bottom:none}
+.desk-table tbody tr:hover{background:#f8faff}
+.desk-table td{padding:10px 12px;color:#4a5568;vertical-align:middle}
+.desk-table td.id-cell{font-weight:600;color:#171717;font-variant-numeric:tabular-nums}
+.empty-row td{text-align:center;padding:28px;color:#8d99a6}
+.table-wrap{overflow-x:auto}
+
+/* ─── Modal ─── */
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:1000;display:flex;align-items:center;justify-content:center;padding:16px}
+.modal-box{background:#fff;border-radius:8px;width:100%;max-width:480px;padding:28px;box-shadow:0 8px 40px rgba(0,0,0,.18)}
+.modal-box h5{font-size:16px;font-weight:600;margin-bottom:20px}
+.modal-sm{max-width:360px}
+.modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.desk-label{font-size:12px;font-weight:600;color:#6c757d;display:block;margin-bottom:4px}
+.desk-input,.desk-select2{display:block;width:100%;border:1px solid #e0e0e0;border-radius:5px;padding:7px 10px;font:13px 'Inter',sans-serif;color:#171717;background:#fff;outline:none}
+.desk-input:focus,.desk-select2:focus{border-color:#2490ef;box-shadow:0 0 0 2px rgba(36,144,239,.12)}
+.modal-footer{display:flex;justify-content:flex-end;gap:8px;margin-top:20px}
+
+/* ─── Toast ─── */
+.desk-toast{position:fixed;bottom:20px;right:20px;background:#171717;color:#fff;padding:10px 18px;border-radius:6px;font-size:13px;font-weight:500;z-index:2000;opacity:0;transition:opacity .2s;pointer-events:none}
+.desk-toast.show{opacity:1}
+
+/* ─── Login page ─── */
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f8f8f8;padding:24px}
+.login-box{background:#fff;border:1px solid #ebeff5;border-radius:8px;padding:40px 36px;width:100%;max-width:380px;box-shadow:0 2px 16px rgba(0,0,0,.06)}
 .login-logo{display:flex;align-items:center;gap:10px;margin-bottom:28px}
-.login-logo .mark{width:40px;height:40px;flex-shrink:0;display:block}
-.login-logo strong{font-size:16px;font-weight:600;display:block;color:var(--fp-text)}
-.login-logo span{font-size:12px;color:var(--fp-muted)}
-.login-err{background:var(--fp-err-bg);color:var(--fp-err);border-radius:5px;padding:9px 12px;font-size:13px;margin-top:12px}
+.login-logo strong{font-size:16px;font-weight:600;display:block}
+.login-logo span{font-size:12px;color:#8d99a6}
+.login-err{background:#f8d7da;color:#721c24;border-radius:5px;padding:9px 12px;font-size:13px;margin-top:12px}
+.login-label{font-size:12px;font-weight:600;color:#6c757d;display:block;margin-bottom:4px}
+.login-input{display:block;width:100%;border:1px solid #e0e0e0;border-radius:5px;padding:9px 10px;font:14px 'Inter',sans-serif;color:#171717;outline:none;margin-bottom:14px}
+.login-input:focus{border-color:#2490ef;box-shadow:0 0 0 2px rgba(36,144,239,.12)}
+.login-btn{display:block;width:100%;background:#2490ef;color:#fff;border:none;border-radius:5px;padding:10px;font:600 14px 'Inter',sans-serif;cursor:pointer;margin-top:4px}
+.login-btn:hover{background:#1c74c4}
+.login-btn:disabled{opacity:.6;cursor:not-allowed}
 </style>
 </head>
 <body>
 
 {% if is_guest %}
-<!-- ── Frappe-style navbar (guest) ── -->
-<nav class="navbar frappe-navbar sticky-top">
-  <div class="container">
-    <a class="navbar-brand" href="/harborpoint">
-      <svg class="brand-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect rx="18" fill="#2490EF" width="100" height="100"/><text x="50" y="76" font-family="Arial,sans-serif" font-size="72" font-weight="700" fill="white" text-anchor="middle">F</text></svg>
-      HarborPoint
-    </a>
-  </div>
-</nav>
-<div class="login-page">
-  <div class="login-card">
+<div class="login-wrap">
+  <div class="login-box">
     <div class="login-logo">
-      <svg class="mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect rx="18" fill="#2490EF" width="100" height="100"/><text x="50" y="76" font-family="Arial,sans-serif" font-size="72" font-weight="700" fill="white" text-anchor="middle">F</text></svg>
-      <div>
-        <strong>HarborPoint</strong>
-        <span>IT Asset Management</span>
-      </div>
+      <svg width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect rx="18" fill="#171717" width="100" height="100"/><text x="50" y="76" font-family="Arial,sans-serif" font-size="72" font-weight="700" fill="white" text-anchor="middle">F</text></svg>
+      <div><strong>HarborPoint</strong><span>IT Asset Management</span></div>
     </div>
-    <h5 class="mb-1" style="font-size:18px;font-weight:600">Sign in</h5>
-    <p class="text-muted mb-4" style="font-size:13px">Use your Frappe account to continue.</p>
-    <div class="form-group">
-      <label class="fp-label">Username</label>
-      <input id="usr" type="text" class="fp-input" value="Administrator" autocomplete="username">
-    </div>
-    <div class="form-group">
-      <label class="fp-label">Password</label>
-      <input id="pwd" type="password" class="fp-input" autocomplete="current-password">
-    </div>
-    <button class="btn-fp btn-fp-primary w-100" id="login-btn" onclick="doLogin()" style="padding:9px;width:100%;justify-content:center;border-radius:5px">Sign in</button>
+    <label class="login-label">Username</label>
+    <input id="usr" type="text" class="login-input" value="Administrator" autocomplete="username">
+    <label class="login-label">Password</label>
+    <input id="pwd" type="password" class="login-input" autocomplete="current-password">
+    <button class="login-btn" id="login-btn" onclick="doLogin()">Sign in</button>
     <div class="login-err" id="login-err" hidden></div>
   </div>
 </div>
@@ -150,189 +156,160 @@ function doLogin(){
   var err=document.getElementById('login-err');
   if(!usr||!pwd){err.textContent='Enter username and password.';err.hidden=false;return;}
   btn.disabled=true;btn.textContent='Signing in…';err.hidden=true;
-  fetch('/api/method/login',{
-    method:'POST',
-    headers:{'Content-Type':'application/x-www-form-urlencoded','X-Frappe-CSRF-Token':'fetch'},
-    credentials:'include',
-    body:'usr='+encodeURIComponent(usr)+'&pwd='+encodeURIComponent(pwd)
-  }).then(function(r){
-    return r.json().then(function(d){
-      if(d&&(d.message==='Logged In'||d.home_page)){window.location.reload();}
-      else{err.textContent='Incorrect username or password.';err.hidden=false;btn.disabled=false;btn.textContent='Sign in';}
-    }).catch(function(){
-      if(r.ok||r.status===200){window.location.reload();}
-      else{err.textContent='Login failed. Try again.';err.hidden=false;btn.disabled=false;btn.textContent='Sign in';}
-    });
-  }).catch(function(){err.textContent='Network error. Try again.';err.hidden=false;btn.disabled=false;btn.textContent='Sign in';});
+  fetch('/api/method/login',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded','X-Frappe-CSRF-Token':'fetch'},credentials:'include',body:'usr='+encodeURIComponent(usr)+'&pwd='+encodeURIComponent(pwd)})
+  .then(function(r){return r.json().then(function(d){if(d&&(d.message==='Logged In'||d.home_page)){window.location.reload();}else{err.textContent='Incorrect username or password.';err.hidden=false;btn.disabled=false;btn.textContent='Sign in';}}).catch(function(){if(r.ok){window.location.reload();}else{err.textContent='Login failed.';err.hidden=false;btn.disabled=false;btn.textContent='Sign in';}});})
+  .catch(function(){err.textContent='Network error.';err.hidden=false;btn.disabled=false;btn.textContent='Sign in';});
 }
 document.getElementById('pwd').addEventListener('keydown',function(e){if(e.key==='Enter')doLogin();});
 </script>
 
 {% else %}
-<!-- ── Frappe-style navbar (authenticated) ── -->
-<nav class="navbar navbar-expand-lg frappe-navbar sticky-top">
-  <div class="container">
-    <a class="navbar-brand" href="/harborpoint">
-      <svg class="brand-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect rx="18" fill="#2490EF" width="100" height="100"/><text x="50" y="76" font-family="Arial,sans-serif" font-size="72" font-weight="700" fill="white" text-anchor="middle">F</text></svg>
-      HarborPoint
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navMain">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navMain">
-      <ul class="navbar-nav ml-auto align-items-center">
-        <li class="nav-item"><span class="badge-ok nav-link" style="font-size:11px">AS-IS baseline</span></li>
-        <li class="nav-item">
-          <button class="btn-fp nav-link" style="border:none;background:none;cursor:pointer" id="toggle-intake">Record intake</button>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="accountMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Account
-          </a>
-          <div class="dropdown-menu dropdown-menu-right">
-            <a class="dropdown-item" href="#" onclick="doLogout();return false;">Sign out</a>
-          </div>
-        </li>
-      </ul>
+<div class="desk-wrap">
+
+  <!-- Frappe Desk topbar -->
+  <div class="desk-topbar">
+    <svg class="topbar-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect rx="14" fill="#2d2d2d" width="100" height="100"/><text x="50" y="76" font-family="Arial,sans-serif" font-size="72" font-weight="700" fill="white" text-anchor="middle">F</text></svg>
+    <div class="topbar-search">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" placeholder="Search or type a command (Ctrl + G)" readonly>
+    </div>
+    <div class="topbar-right">
+      <button class="topbar-btn" id="toggle-intake" title="Record intake">&#128203; Intake</button>
+      <button class="topbar-btn">&#128276;</button>
+      <button class="topbar-btn">Help &#9660;</button>
+      <div class="topbar-avatar" title="Administrator">A</div>
     </div>
   </div>
-</nav>
 
-<!-- ── Page content ── -->
-<div class="page-wrapper">
-  <div class="container">
+  <div class="desk-body">
 
-    <!-- Asset intake checklist (toggle) -->
-    <div id="intake-panel" class="fp-card mb-4" hidden>
-      <div class="fp-card-header pb-3">
-        <div>
-          <div class="fp-card-title">Asset intake checklist</div>
-          <div class="fp-card-subtitle">Centralize receipt, tagging, and registration.</div>
-        </div>
-        <span class="badge-warn">3 steps pending</span>
-      </div>
-      <div class="fp-card-body">
-        <div class="row">
-          <div class="col-md-4 mb-2"><div class="intake-step"><span class="dot-warn"></span>Confirm delivery and serial number</div></div>
-          <div class="col-md-4 mb-2"><div class="intake-step"><span class="dot-warn"></span>Apply asset tag and assign owner</div></div>
-          <div class="col-md-4 mb-2"><div class="intake-step"><span class="dot-warn"></span>Register receipt and evidence</div></div>
-        </div>
-      </div>
+    <!-- Sidebar -->
+    <div class="desk-sidebar">
+      <div class="sidebar-module"><span class="menu-icon">&#9776;</span> HarborPoint</div>
+      <div class="sidebar-section">Module</div>
+      <div class="sidebar-item active" onclick="showView('dashboard')"><span class="item-icon">&#128200;</span> Dashboard</div>
+      <div class="sidebar-item" onclick="showView('register')"><span class="item-icon">&#128203;</span> Asset Register</div>
+      <div class="sidebar-item" onclick="showView('lifecycle')"><span class="item-icon">&#128260;</span> Lifecycle</div>
+      <div class="sidebar-section">Actions</div>
+      <div class="sidebar-item" onclick="document.getElementById('add-asset-btn').click()"><span class="item-icon">&#43;</span> Add Asset</div>
+      <div class="sidebar-item" onclick="exportCSV()"><span class="item-icon">&#8681;</span> Export CSV</div>
+      <div class="sidebar-section">Account</div>
+      <div class="sidebar-item" onclick="doLogout()"><span class="item-icon">&#8594;</span> Sign out</div>
     </div>
 
-    <!-- KPIs -->
-    <div class="section-title">Asset overview</div>
-    <div class="section-desc">Live counts from the current asset register.</div>
-    <div class="row mb-4">
-      <div class="col-6 col-md-3 mb-3"><div class="kpi-card"><div class="kpi-label">Tracked assets</div><div class="kpi-value" id="kpi-total">0</div><div class="kpi-detail">Laptops, desktops, mobile, peripherals</div></div></div>
-      <div class="col-6 col-md-3 mb-3"><div class="kpi-card"><div class="kpi-label">Assigned</div><div class="kpi-value" id="kpi-assigned">0</div><div class="kpi-detail">Currently with custodians</div></div></div>
-      <div class="col-6 col-md-3 mb-3"><div class="kpi-card"><div class="kpi-label">Loaners</div><div class="kpi-value" id="kpi-loaner">0</div><div class="kpi-detail">Return dates require follow-up</div></div></div>
-      <div class="col-6 col-md-3 mb-3"><div class="kpi-card"><div class="kpi-label">For repair / retirement</div><div class="kpi-value" id="kpi-attention">0</div><div class="kpi-detail">Needs action</div></div></div>
-    </div>
+    <!-- Main content -->
+    <div class="desk-main">
 
-    <!-- Lifecycle + Pain points -->
-    <div class="row mb-4">
-      <div class="col-lg-8 mb-3 mb-lg-0">
-        <div class="fp-card h-100">
-          <div class="fp-card-header pb-3">
-            <div>
-              <div class="fp-card-title">Asset lifecycle</div>
-              <div class="fp-card-subtitle">AS-IS process mapped to proposed control points.</div>
+      <!-- Intake panel (toggle) -->
+      <div id="intake-panel" class="desk-card" hidden>
+        <div class="desk-card-head">
+          <div><div class="desk-card-title">Asset intake checklist</div><div class="desk-card-subtitle">Centralize receipt, tagging, and registration.</div></div>
+          <span class="badge-warn">3 steps pending</span>
+        </div>
+        <div class="desk-card-body">
+          <div class="intake-step"><span class="dot-warn"></span>Confirm delivery and serial number</div>
+          <div class="intake-step"><span class="dot-warn"></span>Apply asset tag and assign owner</div>
+          <div class="intake-step"><span class="dot-warn"></span>Register receipt and evidence</div>
+        </div>
+      </div>
+
+      <!-- Dashboard view -->
+      <div id="view-dashboard">
+        <div class="page-title">Dashboard</div>
+        <div class="kpi-row">
+          <div class="kpi-tile"><div class="kpi-label">Tracked assets</div><div class="kpi-val" id="kpi-total">0</div><div class="kpi-sub">All registered</div></div>
+          <div class="kpi-tile"><div class="kpi-label">Assigned</div><div class="kpi-val" id="kpi-assigned">0</div><div class="kpi-sub">With custodians</div></div>
+          <div class="kpi-tile"><div class="kpi-label">Loaners</div><div class="kpi-val" id="kpi-loaner">0</div><div class="kpi-sub">Return pending</div></div>
+          <div class="kpi-tile"><div class="kpi-label">Needs attention</div><div class="kpi-val" id="kpi-attention">0</div><div class="kpi-sub">Repair / retirement</div></div>
+        </div>
+        <div class="desk-card">
+          <div class="desk-card-head"><div><div class="desk-card-title">Priority pain points</div><div class="desk-card-subtitle">Risks from the AS-IS assessment</div></div></div>
+          <div class="desk-card-body"><div id="pain-list"></div></div>
+        </div>
+      </div>
+
+      <!-- Register view -->
+      <div id="view-register" hidden>
+        <div class="page-title">Asset Register</div>
+        <div class="desk-card">
+          <div class="desk-card-body">
+            <div class="table-toolbar">
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <input class="desk-search-input" id="search-input" type="search" placeholder="Search assets&hellip;">
+                <select class="desk-select" id="status-filter">
+                  <option value="All">All statuses</option>
+                  <option value="Assigned">Assigned</option>
+                  <option value="Repair">Repair</option>
+                  <option value="Loaner">Loaner</option>
+                  <option value="Retirement">Retirement</option>
+                </select>
+              </div>
+              <div style="display:flex;gap:8px">
+                <button class="btn-desk btn-xs" id="export-btn">Export CSV</button>
+                <button class="btn-desk btn-desk-primary btn-xs" id="add-asset-btn">+ Add Asset</button>
+              </div>
             </div>
-            <small class="text-muted">280 employees &middot; 24 IT staff</small>
-          </div>
-          <div class="fp-card-body">
-            <div class="row" id="lifecycle-grid"></div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4">
-        <div class="fp-card h-100">
-          <div class="fp-card-header pb-3">
-            <div>
-              <div class="fp-card-title">Priority pain points</div>
-              <div class="fp-card-subtitle">Risks from the AS-IS assessment.</div>
+            <div class="table-wrap">
+              <table class="desk-table">
+                <thead><tr><th>Asset ID</th><th>Type</th><th>Custodian</th><th>Location</th><th>Status</th><th>Next action</th><th>Actions</th></tr></thead>
+                <tbody id="asset-tbody"></tbody>
+              </table>
             </div>
           </div>
-          <div class="fp-card-body">
-            <div id="pain-list"></div>
-          </div>
         </div>
       </div>
-    </div>
 
-    <!-- Asset register -->
-    <div class="fp-card">
-      <div class="fp-card-header pb-3">
-        <div>
-          <div class="fp-card-title">Asset register</div>
-          <div class="fp-card-subtitle">Add, edit, and track all IT assets.</div>
-        </div>
-      </div>
-      <div class="fp-card-body">
-        <div class="table-toolbar">
-          <div class="d-flex gap-2" style="gap:8px">
-            <input class="search-input" id="search-input" type="search" placeholder="Search assets&hellip;">
-            <select class="filter-select" id="status-filter">
-              <option value="All">All statuses</option>
-              <option value="Assigned">Assigned</option>
-              <option value="Repair">Repair</option>
-              <option value="Loaner">Loaner</option>
-              <option value="Retirement">Retirement</option>
-            </select>
+      <!-- Lifecycle view -->
+      <div id="view-lifecycle" hidden>
+        <div class="page-title">Asset Lifecycle</div>
+        <div class="desk-card">
+          <div class="desk-card-head">
+            <div><div class="desk-card-title">AS-IS to TO-BE mapping</div><div class="desk-card-subtitle">280 employees &middot; 24 IT staff</div></div>
+            <span class="badge-warn">6 gaps identified</span>
           </div>
-          <div class="d-flex" style="gap:8px">
-            <button class="btn-fp btn-fp-xs" id="export-btn">Export CSV</button>
-            <button class="btn-fp btn-fp-primary btn-fp-xs" id="add-asset-btn">+ Add Asset</button>
+          <div class="desk-card-body">
+            <div class="lc-grid" id="lifecycle-grid"></div>
           </div>
         </div>
-        <div class="table-responsive">
-          <table class="fp-table">
-            <thead><tr><th>Asset ID</th><th>Type</th><th>Custodian</th><th>Location</th><th>Status</th><th>Next action</th><th>Actions</th></tr></thead>
-            <tbody id="asset-tbody"></tbody>
-          </table>
-        </div>
       </div>
-    </div>
 
-  </div><!-- /container -->
-</div><!-- /page-wrapper -->
+    </div><!-- /desk-main -->
+  </div><!-- /desk-body -->
+</div><!-- /desk-wrap -->
 
 <!-- Add/Edit modal -->
-<div class="fp-modal-backdrop" id="asset-modal" hidden>
-  <div class="fp-modal">
+<div class="modal-backdrop" id="asset-modal" hidden>
+  <div class="modal-box">
     <h5 id="modal-title">Add Asset</h5>
-    <div class="row">
-      <div class="col-6 form-group"><label class="fp-label">Asset ID</label><input id="f-id" type="text" class="fp-input" placeholder="HPL-LT-0001"></div>
-      <div class="col-6 form-group"><label class="fp-label">Type</label><select id="f-type" class="fp-select"><option>Laptop</option><option>Desktop</option><option>Tablet</option><option>Mobile</option><option>Monitor</option><option>Peripheral</option><option>Server</option></select></div>
-      <div class="col-6 form-group"><label class="fp-label">Custodian</label><input id="f-custodian" type="text" class="fp-input" placeholder="Full name or Unassigned"></div>
-      <div class="col-6 form-group"><label class="fp-label">Location</label><select id="f-location" class="fp-select"><option>Calapan HQ</option><option>Batangas Branch</option><option>Quezon City Office</option><option>Calapan Warehouse</option><option>Manila Office</option></select></div>
-      <div class="col-6 form-group"><label class="fp-label">Status</label><select id="f-status" class="fp-select"><option>Assigned</option><option>Loaner</option><option>Repair</option><option>Retirement</option></select></div>
-      <div class="col-6 form-group"><label class="fp-label">Next Action</label><input id="f-next" type="text" class="fp-input" placeholder="e.g. Review in 90 days"></div>
+    <div class="modal-grid">
+      <div><label class="desk-label">Asset ID</label><input id="f-id" type="text" class="desk-input" placeholder="HPL-LT-0001"></div>
+      <div><label class="desk-label">Type</label><select id="f-type" class="desk-select2"><option>Laptop</option><option>Desktop</option><option>Tablet</option><option>Mobile</option><option>Monitor</option><option>Peripheral</option><option>Server</option></select></div>
+      <div><label class="desk-label">Custodian</label><input id="f-custodian" type="text" class="desk-input" placeholder="Full name or Unassigned"></div>
+      <div><label class="desk-label">Location</label><select id="f-location" class="desk-select2"><option>Calapan HQ</option><option>Batangas Branch</option><option>Quezon City Office</option><option>Calapan Warehouse</option><option>Manila Office</option></select></div>
+      <div><label class="desk-label">Status</label><select id="f-status" class="desk-select2"><option>Assigned</option><option>Loaner</option><option>Repair</option><option>Retirement</option></select></div>
+      <div><label class="desk-label">Next Action</label><input id="f-next" type="text" class="desk-input" placeholder="e.g. Review in 90 days"></div>
     </div>
-    <div class="d-flex justify-content-end" style="gap:8px;margin-top:8px">
-      <button class="btn-fp" id="modal-cancel">Cancel</button>
-      <button class="btn-fp btn-fp-primary" id="modal-save">Save</button>
+    <div class="modal-footer">
+      <button class="btn-desk" id="modal-cancel">Cancel</button>
+      <button class="btn-desk btn-desk-primary" id="modal-save">Save</button>
     </div>
   </div>
 </div>
 
 <!-- Delete confirm modal -->
-<div class="fp-modal-backdrop" id="confirm-modal" hidden>
-  <div class="fp-modal fp-modal-sm">
+<div class="modal-backdrop" id="confirm-modal" hidden>
+  <div class="modal-box modal-sm">
     <h5>Delete asset?</h5>
-    <p class="text-muted" style="font-size:13px">This will permanently remove <strong id="confirm-asset-id"></strong> from the register.</p>
-    <div class="d-flex justify-content-end" style="gap:8px;margin-top:16px">
-      <button class="btn-fp" id="confirm-cancel">Cancel</button>
-      <button class="btn-fp btn-fp-danger" id="confirm-delete">Delete</button>
+    <p style="font-size:13px;color:#6c757d;margin-top:8px">This will permanently remove <strong id="confirm-asset-id"></strong>.</p>
+    <div class="modal-footer">
+      <button class="btn-desk" id="confirm-cancel">Cancel</button>
+      <button class="btn-desk btn-desk-danger" id="confirm-delete">Delete</button>
     </div>
   </div>
 </div>
 
-<div class="fp-toast" id="toast"></div>
+<div class="desk-toast" id="toast"></div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.bundle.min.js"></script>
 <script>
 var STORAGE_KEY='hp_assets_v1';
 var DEFAULT_ASSETS=[
@@ -358,16 +335,11 @@ var PAIN=[
   {id:'P9',title:'Renewal dependency',detail:'License renewals partly depend on personal calendar reminders.'},
   {id:'P10',title:'Erasure evidence gap',detail:'Data-erasure proof is stored outside the asset record.'},
 ];
-var SC={Assigned:'s-assigned',Loaner:'s-loaner',Repair:'s-repair',Retirement:'s-retirement'};
+var SC={Assigned:'badge-ok',Loaner:'badge-info',Repair:'badge-warn',Retirement:'badge-err'};
 function loadAssets(){try{var d=localStorage.getItem(STORAGE_KEY);return d?JSON.parse(d):DEFAULT_ASSETS.map(function(a){return Object.assign({},a);});}catch(e){return DEFAULT_ASSETS.map(function(a){return Object.assign({},a);});}}
 function saveAssets(arr){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(arr));}catch(e){}}
 var assets=loadAssets(),editingId=null,deleteId=null;
-function updateKPIs(){
-  document.getElementById('kpi-total').textContent=assets.length;
-  document.getElementById('kpi-assigned').textContent=assets.filter(function(a){return a.status==='Assigned';}).length;
-  document.getElementById('kpi-loaner').textContent=assets.filter(function(a){return a.status==='Loaner';}).length;
-  document.getElementById('kpi-attention').textContent=assets.filter(function(a){return a.status==='Repair'||a.status==='Retirement';}).length;
-}
+function updateKPIs(){document.getElementById('kpi-total').textContent=assets.length;document.getElementById('kpi-assigned').textContent=assets.filter(function(a){return a.status==='Assigned';}).length;document.getElementById('kpi-loaner').textContent=assets.filter(function(a){return a.status==='Loaner';}).length;document.getElementById('kpi-attention').textContent=assets.filter(function(a){return a.status==='Repair'||a.status==='Retirement';}).length;}
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function renderTable(){
   var filter=document.getElementById('status-filter').value;
@@ -377,47 +349,26 @@ function renderTable(){
   if(filter!=='All')rows=rows.filter(function(a){return a.status===filter;});
   if(q)rows=rows.filter(function(a){return [a.id,a.type,a.custodian,a.location,a.next].join(' ').toLowerCase().indexOf(q)!==-1;});
   if(!rows.length){tbody.innerHTML='<tr class="empty-row"><td colspan="7">No assets match.</td></tr>';return;}
-  rows.forEach(function(a){
-    var tr=document.createElement('tr');
-    tr.innerHTML='<td class="id-cell">'+esc(a.id)+'</td><td>'+esc(a.type)+'</td><td>'+esc(a.custodian)+'</td><td>'+esc(a.location)+'</td>'+
-      '<td><span class="status-pill '+(SC[a.status]||'s-assigned')+'">'+esc(a.status)+'</span></td><td>'+esc(a.next)+'</td>'+
-      '<td><div class="d-flex" style="gap:6px"><button class="btn-fp btn-fp-xs" onclick="openEdit(\''+esc(a.id)+'\')">Edit</button>'+
-      '<button class="btn-fp btn-fp-danger btn-fp-xs" onclick="openDelete(\''+esc(a.id)+'\')">Delete</button></div></td>';
-    tbody.appendChild(tr);
-  });
+  rows.forEach(function(a){var tr=document.createElement('tr');tr.innerHTML='<td class="id-cell">'+esc(a.id)+'</td><td>'+esc(a.type)+'</td><td>'+esc(a.custodian)+'</td><td>'+esc(a.location)+'</td><td><span class="'+(SC[a.status]||'badge-ok')+'">'+esc(a.status)+'</span></td><td>'+esc(a.next)+'</td><td><div style="display:flex;gap:6px"><button class="btn-desk btn-xs" onclick="openEdit(\''+esc(a.id)+'\')">Edit</button><button class="btn-desk btn-desk-danger btn-xs" onclick="openDelete(\''+esc(a.id)+'\')">Delete</button></div></td>';tbody.appendChild(tr);});
 }
+function showView(name){['dashboard','register','lifecycle'].forEach(function(v){document.getElementById('view-'+v).hidden=v!==name;});document.querySelectorAll('.sidebar-item').forEach(function(el){el.classList.remove('active');});var idx={dashboard:0,register:1,lifecycle:2}[name];var items=document.querySelectorAll('.sidebar-item');if(items[idx])items[idx].classList.add('active');}
 function openAdd(){editingId=null;document.getElementById('modal-title').textContent='Add Asset';document.getElementById('f-id').value='HPL-LT-'+(String(assets.length+1).padStart(4,'0'));document.getElementById('f-id').disabled=false;document.getElementById('f-custodian').value='';document.getElementById('f-next').value='Review in 90 days';document.getElementById('asset-modal').hidden=false;}
 function openEdit(id){var a=assets.find(function(x){return x.id===id;});if(!a)return;editingId=id;document.getElementById('modal-title').textContent='Edit Asset';document.getElementById('f-id').value=a.id;document.getElementById('f-id').disabled=true;document.getElementById('f-type').value=a.type;document.getElementById('f-custodian').value=a.custodian;document.getElementById('f-location').value=a.location;document.getElementById('f-status').value=a.status;document.getElementById('f-next').value=a.next;document.getElementById('asset-modal').hidden=false;}
 function closeModal(){document.getElementById('asset-modal').hidden=true;editingId=null;}
 function openDelete(id){deleteId=id;document.getElementById('confirm-asset-id').textContent=id;document.getElementById('confirm-modal').hidden=false;}
 function closeConfirm(){document.getElementById('confirm-modal').hidden=true;deleteId=null;}
-function saveAsset(){
-  var id=document.getElementById('f-id').value.trim();
-  if(!id){showToast('Asset ID is required.');return;}
-  var rec={id:id,type:document.getElementById('f-type').value,custodian:document.getElementById('f-custodian').value.trim()||'Unassigned',location:document.getElementById('f-location').value,status:document.getElementById('f-status').value,next:document.getElementById('f-next').value.trim()||'—'};
-  if(editingId){var idx=assets.findIndex(function(a){return a.id===editingId;});if(idx>-1)assets[idx]=rec;showToast('Asset updated.');}
-  else{if(assets.find(function(a){return a.id===id;})){showToast('Asset ID already exists.');return;}assets.push(rec);showToast('Asset added.');}
-  saveAssets(assets);updateKPIs();renderTable();closeModal();
-}
+function saveAsset(){var id=document.getElementById('f-id').value.trim();if(!id){showToast('Asset ID is required.');return;}var rec={id:id,type:document.getElementById('f-type').value,custodian:document.getElementById('f-custodian').value.trim()||'Unassigned',location:document.getElementById('f-location').value,status:document.getElementById('f-status').value,next:document.getElementById('f-next').value.trim()||'—'};if(editingId){var idx=assets.findIndex(function(a){return a.id===editingId;});if(idx>-1)assets[idx]=rec;showToast('Asset updated.');}else{if(assets.find(function(a){return a.id===id;})){showToast('Asset ID already exists.');return;}assets.push(rec);showToast('Asset added.');}saveAssets(assets);updateKPIs();renderTable();closeModal();}
 function confirmDelete(){assets=assets.filter(function(a){return a.id!==deleteId;});saveAssets(assets);updateKPIs();renderTable();showToast('Asset deleted.');closeConfirm();}
 function exportCSV(){var rows=assets.map(function(a){return [a.id,a.type,a.custodian,a.location,a.status,a.next].map(function(v){return '"'+String(v).replace(/"/g,'""')+'"';}).join(',');});var csv=['Asset ID,Type,Custodian,Location,Status,Next Action'].concat(rows).join('\n');var el=document.createElement('a');el.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);el.download='harborpoint-assets.csv';el.click();showToast('Exported CSV.');}
 function showToast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2500);}
 function doLogout(){fetch('/api/method/logout',{credentials:'include'}).finally(function(){window.location.href='/harborpoint';});}
 var lcGrid=document.getElementById('lifecycle-grid');
-LIFECYCLE.forEach(function(s,i){
-  var col=document.createElement('div');col.className='col-md-6 col-lg-4 mb-3';
-  col.innerHTML='<div class="lc-item has-gap"><div class="lc-step">0'+(i+1)+' <span class="lc-gap">Gap</span></div><div class="lc-name">'+s.name+'</div><div class="lc-asis">'+s.asIs+'</div><div class="lc-tobe">To-be: '+s.toBe+'</div></div>';
-  lcGrid.appendChild(col);
-});
+LIFECYCLE.forEach(function(s,i){var d=document.createElement('div');d.className='lc-item';d.innerHTML='<div class="lc-step">0'+(i+1)+' <span class="lc-gap">Gap</span></div><div class="lc-name">'+s.name+'</div><div class="lc-asis">'+s.asIs+'</div><div class="lc-tobe">To-be: '+s.toBe+'</div>';lcGrid.appendChild(d);});
 var painList=document.getElementById('pain-list');
-PAIN.forEach(function(p){
-  var d=document.createElement('div');d.className='d-flex mb-3';
-  d.innerHTML='<span class="pain-id mr-2">'+p.id+'</span><div><div class="pain-title">'+p.title+'</div><div class="pain-detail">'+p.detail+'</div></div>';
-  painList.appendChild(d);
-});
+PAIN.forEach(function(p){var d=document.createElement('div');d.className='pain-row';d.innerHTML='<span class="pain-id">'+p.id+'</span><div><div class="pain-title">'+p.title+'</div><div class="pain-detail">'+p.detail+'</div></div>';painList.appendChild(d);});
 document.getElementById('status-filter').addEventListener('change',renderTable);
 document.getElementById('search-input').addEventListener('input',renderTable);
-document.getElementById('add-asset-btn').addEventListener('click',openAdd);
+document.getElementById('add-asset-btn').addEventListener('click',function(){showView('register');openAdd();});
 document.getElementById('modal-cancel').addEventListener('click',closeModal);
 document.getElementById('modal-save').addEventListener('click',saveAsset);
 document.getElementById('confirm-cancel').addEventListener('click',closeConfirm);
@@ -426,7 +377,7 @@ document.getElementById('export-btn').addEventListener('click',exportCSV);
 document.getElementById('asset-modal').addEventListener('click',function(e){if(e.target===e.currentTarget)closeModal();});
 document.getElementById('confirm-modal').addEventListener('click',function(e){if(e.target===e.currentTarget)closeConfirm();});
 var intakePanel=document.getElementById('intake-panel');
-document.getElementById('toggle-intake').addEventListener('click',function(){var open=!intakePanel.hidden;intakePanel.hidden=open;this.textContent=open?'Record intake':'Close intake';});
+document.getElementById('toggle-intake').addEventListener('click',function(){var open=!intakePanel.hidden;intakePanel.hidden=open;});
 updateKPIs();renderTable();
 </script>
 {% endif %}
