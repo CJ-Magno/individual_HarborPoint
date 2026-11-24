@@ -1,7 +1,9 @@
-{% extends "templates/web.html" %}
-{% block title %}HarborPoint — IT Asset Management{% endblock %}
-
-{% block head_include %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HarborPoint — IT Asset Management</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
 <style>
 :root{
@@ -11,23 +13,25 @@
   --err:#dc2626;--err-bg:#fee2e2;--info:#2563eb;--info-bg:#dbeafe;
   --r:6px;--font-head:'Space Grotesk',system-ui,sans-serif;--font-body:'Inter',system-ui,sans-serif;
 }
-*,*::before,*::after{box-sizing:border-box}
+*,*::before,*::after{box-sizing:border-box;margin:0}
 [hidden]{display:none!important}
-#hp-wrap{font-family:var(--font-body);font-size:14px;color:var(--text);padding:0 0 40px}
-.hp-header{background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 20px;margin-bottom:24px}
-.hp-brand{display:flex;align-items:center;gap:10px}
-.hp-mark{width:36px;height:36px;border-radius:50%;background:var(--hp-blue);display:grid;place-items:center;color:#fff;font-family:var(--font-head);font-weight:700;font-size:13px}
-.hp-brand-text strong{font-family:var(--font-head);font-weight:600;font-size:15px;display:block;color:var(--text)}
-.hp-brand-text span{color:var(--muted);font-size:12px}
-.hp-header-actions{display:flex;align-items:center;gap:8px}
+html,body{height:100%;font-family:var(--font-body);font-size:14px;color:var(--text);background:var(--bg)}
+#app{display:flex;flex-direction:column;min-height:100%}
+header{position:sticky;top:0;background:var(--surface);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;z-index:10}
+.brand{display:flex;align-items:center;gap:10px}
+.brand-mark{width:36px;height:36px;border-radius:50%;background:var(--hp-blue);display:grid;place-items:center;color:#fff;font-family:var(--font-head);font-weight:700;font-size:13px}
+.brand-text strong{font-family:var(--font-head);font-weight:600;font-size:15px;display:block}
+.brand-text span{color:var(--muted);font-size:12px}
+.header-actions{display:flex;align-items:center;gap:8px}
 .badge-baseline{background:var(--ok-bg);color:var(--ok);font-size:11px;font-weight:600;padding:3px 10px;border-radius:999px}
-.btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:var(--r);border:none;cursor:pointer;font:500 13px var(--font-body);transition:opacity .15s;text-decoration:none}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:var(--r);border:none;cursor:pointer;font:500 13px var(--font-body);transition:opacity .15s}
 .btn:hover{opacity:.85}
 .btn-ghost{background:var(--border);color:var(--text)}
 .btn-primary{background:var(--hp-blue);color:#fff}
 .btn-sm{padding:4px 10px;font-size:12px}
 .btn-danger{background:var(--err-bg);color:var(--err)}
-.hp-main{padding:0 20px;display:flex;flex-direction:column;gap:20px}
+main{flex:1;overflow:auto;padding:24px 16px 32px;display:flex;flex-direction:column;gap:20px}
 .sec-head{margin-bottom:12px}
 .sec-head h2{font:600 15px var(--font-head);color:var(--text)}
 .sec-head p{color:var(--muted);font-size:12px;margin-top:2px}
@@ -79,7 +83,7 @@ td.asset-id{font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
 .s-retirement{background:var(--err-bg);color:var(--err)}
 .action-cell{display:flex;gap:6px}
 .empty-row td{text-align:center;padding:24px;color:var(--muted)}
-.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1050;display:flex;align-items:center;justify-content:center;padding:16px}
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;display:flex;align-items:center;justify-content:center;padding:16px}
 .modal-box{background:var(--surface);border-radius:10px;width:100%;max-width:480px;padding:28px;box-shadow:0 16px 48px rgba(0,0,0,.2)}
 .modal-box h3{font:700 16px var(--font-head);margin-bottom:20px;color:var(--text)}
 .modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -88,28 +92,27 @@ td.asset-id{font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
 .form-group input,.form-group select{border:1px solid var(--border);border-radius:var(--r);padding:8px 10px;font:13px var(--font-body);color:var(--text);background:var(--bg);outline:none;transition:border-color .15s}
 .form-group input:focus,.form-group select:focus{border-color:var(--hp-blue)}
 .modal-footer{display:flex;justify-content:flex-end;gap:8px;margin-top:20px}
-.toast{position:fixed;bottom:24px;right:24px;background:var(--text);color:var(--surface);padding:10px 18px;border-radius:var(--r);font-size:13px;font-weight:500;z-index:1100;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast{position:fixed;bottom:24px;right:24px;background:var(--text);color:var(--surface);padding:10px 18px;border-radius:var(--r);font-size:13px;font-weight:500;z-index:300;opacity:0;transition:opacity .2s}
 .toast.show{opacity:1}
 </style>
-{% endblock %}
-
-{% block page_content %}
-<div id="hp-wrap">
-  <div class="hp-header">
-    <div class="hp-brand">
-      <div class="hp-mark">HP</div>
-      <div class="hp-brand-text">
+</head>
+<body>
+<div id="app">
+  <header>
+    <div class="brand">
+      <div class="brand-mark">HP</div>
+      <div class="brand-text">
         <strong>HarborPoint Learning Solutions</strong>
         <span>IT Asset Management</span>
       </div>
     </div>
-    <div class="hp-header-actions">
+    <div class="header-actions">
       <span class="badge-baseline">AS-IS baseline</span>
       <button class="btn btn-ghost" id="toggle-intake">Record intake</button>
+      <a href="/api/method/logout" class="btn btn-ghost">Sign out</a>
     </div>
-  </div>
-
-  <div class="hp-main">
+  </header>
+  <main>
     <section>
       <div class="sec-head"><h2>Asset overview</h2><p>Live counts from the current asset register.</p></div>
       <div class="kpi-grid">
@@ -119,7 +122,6 @@ td.asset-id{font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
         <div class="kpi-card"><span class="kpi-label">For repair / retirement</span><span class="kpi-value" id="kpi-attention">0</span><span class="kpi-detail">Needs action</span></div>
       </div>
     </section>
-
     <section id="intake-panel" class="panel" hidden>
       <div class="panel-head">
         <div class="panel-head-left"><h2>Asset intake checklist</h2><p>Centralize receipt, tagging, and registration.</p></div>
@@ -131,7 +133,6 @@ td.asset-id{font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
         <div class="step-item"><span class="dot-warn"></span>Register receipt and evidence</div>
       </div>
     </section>
-
     <div class="two-col">
       <div class="panel">
         <div class="panel-head">
@@ -145,7 +146,6 @@ td.asset-id{font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
         <div class="pain-list" id="pain-list"></div>
       </div>
     </div>
-
     <div class="panel">
       <div class="table-toolbar">
         <div class="panel-head-left">
@@ -172,49 +172,19 @@ td.asset-id{font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
         </table>
       </div>
     </div>
-  </div>
+  </main>
 </div>
 
-<!-- Asset modal -->
 <div class="modal-backdrop" id="asset-modal" hidden>
   <div class="modal-box">
     <h3 id="modal-title">Add Asset</h3>
     <div class="modal-grid">
-      <div class="form-group">
-        <label>Asset ID</label>
-        <input id="f-id" type="text" placeholder="HPL-LT-0001">
-      </div>
-      <div class="form-group">
-        <label>Type</label>
-        <select id="f-type">
-          <option>Laptop</option><option>Desktop</option><option>Tablet</option>
-          <option>Mobile</option><option>Monitor</option><option>Peripheral</option><option>Server</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Custodian</label>
-        <input id="f-custodian" type="text" placeholder="Full name or Unassigned">
-      </div>
-      <div class="form-group">
-        <label>Location</label>
-        <select id="f-location">
-          <option>Calapan HQ</option>
-          <option>Batangas Branch</option>
-          <option>Quezon City Office</option>
-          <option>Calapan Warehouse</option>
-          <option>Manila Office</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Status</label>
-        <select id="f-status">
-          <option>Assigned</option><option>Loaner</option><option>Repair</option><option>Retirement</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Next Action</label>
-        <input id="f-next" type="text" placeholder="e.g. Review in 90 days">
-      </div>
+      <div class="form-group"><label>Asset ID</label><input id="f-id" type="text" placeholder="HPL-LT-0001"></div>
+      <div class="form-group"><label>Type</label><select id="f-type"><option>Laptop</option><option>Desktop</option><option>Tablet</option><option>Mobile</option><option>Monitor</option><option>Peripheral</option><option>Server</option></select></div>
+      <div class="form-group"><label>Custodian</label><input id="f-custodian" type="text" placeholder="Full name or Unassigned"></div>
+      <div class="form-group"><label>Location</label><select id="f-location"><option>Calapan HQ</option><option>Batangas Branch</option><option>Quezon City Office</option><option>Calapan Warehouse</option><option>Manila Office</option></select></div>
+      <div class="form-group"><label>Status</label><select id="f-status"><option>Assigned</option><option>Loaner</option><option>Repair</option><option>Retirement</option></select></div>
+      <div class="form-group"><label>Next Action</label><input id="f-next" type="text" placeholder="e.g. Review in 90 days"></div>
     </div>
     <div class="modal-footer">
       <button class="btn btn-ghost" id="modal-cancel">Cancel</button>
@@ -223,7 +193,6 @@ td.asset-id{font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
   </div>
 </div>
 
-<!-- Confirm delete -->
 <div class="modal-backdrop" id="confirm-modal" hidden>
   <div class="modal-box" style="max-width:360px">
     <h3>Delete asset?</h3>
@@ -236,9 +205,6 @@ td.asset-id{font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
 </div>
 
 <div class="toast" id="toast"></div>
-{% endblock %}
-
-{% block script %}
 <script>
 const STORAGE_KEY='hp_assets_v1';
 const DEFAULT_ASSETS=[
@@ -292,25 +258,8 @@ function renderTable(){
     tbody.appendChild(tr);
   });
 }
-function openAdd(){
-  editingId=null;
-  document.getElementById('modal-title').textContent='Add Asset';
-  document.getElementById('f-id').value='HPL-LT-'+(String(assets.length+1).padStart(4,'0'));
-  document.getElementById('f-id').disabled=false;
-  document.getElementById('f-custodian').value='';
-  document.getElementById('f-next').value='Review in 90 days';
-  document.getElementById('asset-modal').hidden=false;
-}
-function openEdit(id){
-  const a=assets.find(x=>x.id===id);if(!a)return;
-  editingId=id;
-  document.getElementById('modal-title').textContent='Edit Asset';
-  document.getElementById('f-id').value=a.id;document.getElementById('f-id').disabled=true;
-  document.getElementById('f-type').value=a.type;document.getElementById('f-custodian').value=a.custodian;
-  document.getElementById('f-location').value=a.location;document.getElementById('f-status').value=a.status;
-  document.getElementById('f-next').value=a.next;
-  document.getElementById('asset-modal').hidden=false;
-}
+function openAdd(){editingId=null;document.getElementById('modal-title').textContent='Add Asset';document.getElementById('f-id').value='HPL-LT-'+(String(assets.length+1).padStart(4,'0'));document.getElementById('f-id').disabled=false;document.getElementById('f-custodian').value='';document.getElementById('f-next').value='Review in 90 days';document.getElementById('asset-modal').hidden=false;}
+function openEdit(id){const a=assets.find(x=>x.id===id);if(!a)return;editingId=id;document.getElementById('modal-title').textContent='Edit Asset';document.getElementById('f-id').value=a.id;document.getElementById('f-id').disabled=true;document.getElementById('f-type').value=a.type;document.getElementById('f-custodian').value=a.custodian;document.getElementById('f-location').value=a.location;document.getElementById('f-status').value=a.status;document.getElementById('f-next').value=a.next;document.getElementById('asset-modal').hidden=false;}
 function closeModal(){document.getElementById('asset-modal').hidden=true;editingId=null;}
 function openDelete(id){deleteId=id;document.getElementById('confirm-asset-id').textContent=id;document.getElementById('confirm-modal').hidden=false;}
 function closeConfirm(){document.getElementById('confirm-modal').hidden=true;deleteId=null;}
@@ -323,19 +272,12 @@ function saveAsset(){
   saveAssets(assets);updateKPIs();renderTable();closeModal();
 }
 function confirmDelete(){assets=assets.filter(a=>a.id!==deleteId);saveAssets(assets);updateKPIs();renderTable();showToast('Asset deleted.');closeConfirm();}
-function exportCSV(){
-  const rows=assets.map(a=>[a.id,a.type,a.custodian,a.location,a.status,a.next].map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(','));
-  const csv=['Asset ID,Type,Custodian,Location,Status,Next Action',...rows].join('\n');
-  const el=document.createElement('a');el.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);el.download='harborpoint-assets.csv';el.click();
-  showToast('Exported CSV.');
-}
+function exportCSV(){const rows=assets.map(a=>[a.id,a.type,a.custodian,a.location,a.status,a.next].map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(','));const csv=['Asset ID,Type,Custodian,Location,Status,Next Action',...rows].join('\n');const el=document.createElement('a');el.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);el.download='harborpoint-assets.csv';el.click();showToast('Exported CSV.');}
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
-// Static sections
 const lcGrid=document.getElementById('lifecycle-grid');
 LIFECYCLE.forEach((s,i)=>{const d=document.createElement('div');d.className='lifecycle-card risk';d.innerHTML=`<span class="lc-eyebrow">0${i+1} <span class="gap-tag">Gap</span></span><div class="lc-name">${s.name}</div><div class="lc-asis">${s.asIs}</div><div class="lc-tobe">To-be: ${s.toBe}</div>`;lcGrid.appendChild(d);});
 const painList=document.getElementById('pain-list');
 PAIN.forEach(p=>{const d=document.createElement('div');d.className='pain-row';d.innerHTML=`<span class="pain-id">${p.id}</span><div><div class="pain-title">${p.title}</div><div class="pain-detail">${p.detail}</div></div>`;painList.appendChild(d);});
-// Events
 document.getElementById('status-filter').addEventListener('change',renderTable);
 document.getElementById('search-input').addEventListener('input',renderTable);
 document.getElementById('add-asset-btn').addEventListener('click',openAdd);
@@ -351,4 +293,5 @@ const toggleBtn=document.getElementById('toggle-intake');
 toggleBtn.addEventListener('click',()=>{const open=!intakePanel.hidden;intakePanel.hidden=open;toggleBtn.textContent=open?'Record intake':'Close intake';});
 updateKPIs();renderTable();
 </script>
-{% endblock %}
+</body>
+</html>
