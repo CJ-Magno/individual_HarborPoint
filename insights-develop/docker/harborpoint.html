@@ -175,7 +175,7 @@ document.getElementById('pwd').addEventListener('keydown',function(e){if(e.key==
     <div class="header-actions">
       <span class="badge-baseline">AS-IS baseline</span>
       <button class="btn btn-ghost" id="toggle-intake">Record intake</button>
-      <a href="/api/method/logout" class="btn btn-ghost">Sign out</a>
+      <button class="btn btn-ghost" onclick="doLogout()">Sign out</button>
     </div>
   </header>
   <main>
@@ -357,6 +357,7 @@ document.getElementById('confirm-modal').addEventListener('click',function(e){if
 var intakePanel=document.getElementById('intake-panel');
 var toggleBtn=document.getElementById('toggle-intake');
 toggleBtn.addEventListener('click',function(){var open=!intakePanel.hidden;intakePanel.hidden=open;toggleBtn.textContent=open?'Record intake':'Close intake';});
+function doLogout(){fetch('/api/method/logout',{credentials:'include'}).finally(function(){window.location.href='/harborpoint';});}
 updateKPIs();renderTable();
 </script>
 {% endif %}
