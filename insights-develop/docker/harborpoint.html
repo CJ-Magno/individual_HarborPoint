@@ -1,47 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HarborPoint Assets</title>
+{% extends "templates/web.html" %}
+{% block title %}HarborPoint — IT Asset Management{% endblock %}
+
+{% block head_include %}
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
 <style>
-:root {
+:root{
   --hp-blue:#1d4ed8;--hp-blue-lt:#dbeafe;--bg:#f8fafc;--surface:#ffffff;
   --border:#e2e8f0;--text:#0f172a;--muted:#64748b;--muted2:#94a3b8;
   --ok:#16a34a;--ok-bg:#dcfce7;--warn:#d97706;--warn-bg:#fef3c7;
   --err:#dc2626;--err-bg:#fee2e2;--info:#2563eb;--info-bg:#dbeafe;
   --r:6px;--font-head:'Space Grotesk',system-ui,sans-serif;--font-body:'Inter',system-ui,sans-serif;
 }
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#0f172a;--surface:#1e293b;--border:#334155;--text:#f1f5f9;--muted:#94a3b8;--muted2:#64748b;
-  --hp-blue-lt:#1e3a8a;--ok-bg:#14532d;--warn-bg:#451a03;--err-bg:#450a0a;--info-bg:#1e3a8a;color-scheme:dark;
-}}
-:root[data-theme="dark"]{
-  --bg:#0f172a;--surface:#1e293b;--border:#334155;--text:#f1f5f9;--muted:#94a3b8;--muted2:#64748b;
-  --hp-blue-lt:#1e3a8a;--ok-bg:#14532d;--warn-bg:#451a03;--err-bg:#450a0a;--info-bg:#1e3a8a;color-scheme:dark;
-}
-*,*::before,*::after{box-sizing:border-box;margin:0}
+*,*::before,*::after{box-sizing:border-box}
 [hidden]{display:none!important}
-html,body{height:100%;font-family:var(--font-body);font-size:14px;color:var(--text);background:var(--bg)}
-#app{display:flex;flex-direction:column;min-height:100%}
-header{position:sticky;top:0;background:var(--surface);border-bottom:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;gap:12px;
-  padding:14px 16px;z-index:10}
-.brand{display:flex;align-items:center;gap:10px}
-.brand-mark{width:36px;height:36px;border-radius:50%;background:var(--hp-blue);
-  display:grid;place-items:center;color:#fff;font-family:var(--font-head);font-weight:700;font-size:13px}
-.brand-text strong{font-family:var(--font-head);font-weight:600;font-size:15px;display:block}
-.brand-text span{color:var(--muted);font-size:12px}
-.header-actions{display:flex;align-items:center;gap:8px}
+#hp-wrap{font-family:var(--font-body);font-size:14px;color:var(--text);padding:0 0 40px}
+.hp-header{background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 20px;margin-bottom:24px}
+.hp-brand{display:flex;align-items:center;gap:10px}
+.hp-mark{width:36px;height:36px;border-radius:50%;background:var(--hp-blue);display:grid;place-items:center;color:#fff;font-family:var(--font-head);font-weight:700;font-size:13px}
+.hp-brand-text strong{font-family:var(--font-head);font-weight:600;font-size:15px;display:block;color:var(--text)}
+.hp-brand-text span{color:var(--muted);font-size:12px}
+.hp-header-actions{display:flex;align-items:center;gap:8px}
 .badge-baseline{background:var(--ok-bg);color:var(--ok);font-size:11px;font-weight:600;padding:3px 10px;border-radius:999px}
-.btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:var(--r);border:none;cursor:pointer;font:500 13px var(--font-body);transition:opacity .15s}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:var(--r);border:none;cursor:pointer;font:500 13px var(--font-body);transition:opacity .15s;text-decoration:none}
 .btn:hover{opacity:.85}
 .btn-ghost{background:var(--border);color:var(--text)}
 .btn-primary{background:var(--hp-blue);color:#fff}
 .btn-sm{padding:4px 10px;font-size:12px}
 .btn-danger{background:var(--err-bg);color:var(--err)}
-main{flex:1;overflow:auto;padding:24px 16px 32px;display:flex;flex-direction:column;gap:20px}
+.hp-main{padding:0 20px;display:flex;flex-direction:column;gap:20px}
 .sec-head{margin-bottom:12px}
 .sec-head h2{font:600 15px var(--font-head);color:var(--text)}
 .sec-head p{color:var(--muted);font-size:12px;margin-top:2px}
@@ -75,7 +61,6 @@ main{flex:1;overflow:auto;padding:24px 16px 32px;display:flex;flex-direction:col
 .pain-detail{font-size:12px;color:var(--muted);margin-top:2px}
 .table-wrap{overflow-x:auto;min-width:0}
 .table-toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px}
-.toolbar-left{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .toolbar-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .filter-select{border:1px solid var(--border);background:var(--surface);color:var(--text);font:13px var(--font-body);border-radius:var(--r);padding:6px 10px;cursor:pointer}
 .search-input{border:1px solid var(--border);background:var(--surface);color:var(--text);font:13px var(--font-body);border-radius:var(--r);padding:6px 10px;outline:none;width:200px;transition:border-color .15s}
@@ -94,77 +79,37 @@ td.asset-id{font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
 .s-retirement{background:var(--err-bg);color:var(--err)}
 .action-cell{display:flex;gap:6px}
 .empty-row td{text-align:center;padding:24px;color:var(--muted)}
-/* Modal */
-.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;display:flex;align-items:center;justify-content:center;padding:16px}
-.modal{background:var(--surface);border-radius:10px;width:100%;max-width:480px;padding:28px;box-shadow:0 16px 48px rgba(0,0,0,.2)}
-.modal h3{font:700 16px var(--font-head);margin-bottom:20px}
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1050;display:flex;align-items:center;justify-content:center;padding:16px}
+.modal-box{background:var(--surface);border-radius:10px;width:100%;max-width:480px;padding:28px;box-shadow:0 16px 48px rgba(0,0,0,.2)}
+.modal-box h3{font:700 16px var(--font-head);margin-bottom:20px;color:var(--text)}
 .modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.modal-grid .span2{grid-column:span 2}
 .form-group{display:flex;flex-direction:column;gap:4px}
 .form-group label{font-size:12px;font-weight:600;color:var(--muted)}
-.form-group input,.form-group select,.form-group textarea{border:1px solid var(--border);border-radius:var(--r);padding:8px 10px;font:13px var(--font-body);color:var(--text);background:var(--bg);outline:none;transition:border-color .15s}
-.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--hp-blue)}
+.form-group input,.form-group select{border:1px solid var(--border);border-radius:var(--r);padding:8px 10px;font:13px var(--font-body);color:var(--text);background:var(--bg);outline:none;transition:border-color .15s}
+.form-group input:focus,.form-group select:focus{border-color:var(--hp-blue)}
 .modal-footer{display:flex;justify-content:flex-end;gap:8px;margin-top:20px}
-/* Login */
-#login-overlay{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:100;padding:24px}
-.login-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:36px 32px;width:100%;max-width:380px;box-shadow:0 8px 32px rgba(0,0,0,.1)}
-.login-logo{display:flex;justify-content:center;margin-bottom:20px}
-.login-mark{width:56px;height:56px;border-radius:50%;background:var(--hp-blue);display:grid;place-items:center;color:#fff;font:700 20px var(--font-head)}
-.login-title{text-align:center;margin-bottom:24px}
-.login-title h1{font:700 18px var(--font-head);color:var(--text)}
-.login-title p{color:var(--muted);font-size:13px;margin-top:4px}
-.login-form-group{display:flex;flex-direction:column;gap:4px;margin-bottom:14px}
-.login-form-group label{font-size:12px;font-weight:600;color:var(--muted)}
-.login-form-group input{border:1px solid var(--border);border-radius:var(--r);padding:9px 12px;font:14px var(--font-body);color:var(--text);background:var(--bg);outline:none;transition:border-color .15s}
-.login-form-group input:focus{border-color:var(--hp-blue)}
-#login-btn{width:100%;padding:10px;background:var(--hp-blue);color:#fff;border:none;border-radius:var(--r);font:600 14px var(--font-body);cursor:pointer;margin-top:6px;transition:opacity .15s}
-#login-btn:hover{opacity:.88}
-#login-error{background:var(--err-bg);color:var(--err);border-radius:var(--r);padding:8px 12px;font-size:13px;margin-bottom:10px}
-.login-footer{text-align:center;margin-top:20px;border-top:1px solid var(--border);padding-top:16px}
-.login-footer p{color:var(--muted2);font-size:11px;line-height:1.6}
-/* Toast */
-.toast{position:fixed;bottom:24px;right:24px;background:var(--text);color:var(--surface);padding:10px 18px;border-radius:var(--r);font-size:13px;font-weight:500;z-index:300;opacity:0;transition:opacity .2s}
+.toast{position:fixed;bottom:24px;right:24px;background:var(--text);color:var(--surface);padding:10px 18px;border-radius:var(--r);font-size:13px;font-weight:500;z-index:1100;opacity:0;transition:opacity .2s;pointer-events:none}
 .toast.show{opacity:1}
 </style>
-</head>
-<body>
-<div id="login-overlay">
-  <div class="login-card">
-    <div class="login-logo"><div class="login-mark">HP</div></div>
-    <div class="login-title">
-      <h1>HarborPoint Learning Solutions</h1>
-      <p>IT Asset Management System</p>
-    </div>
-    <div id="login-error" hidden></div>
-    <div class="login-form-group">
-      <label for="usr">Username or Email</label>
-      <input id="usr" type="text" value="Administrator" autocomplete="username">
-    </div>
-    <div class="login-form-group">
-      <label for="pwd">Password</label>
-      <input id="pwd" type="password" placeholder="••••••" autocomplete="current-password">
-    </div>
-    <button id="login-btn" type="button">Sign in to HarborPoint</button>
-    <div class="login-footer"><p>Calapan City, Oriental Mindoro, Philippines<br>© 2024 HarborPoint Learning Solutions</p></div>
-  </div>
-</div>
+{% endblock %}
 
-<div id="app" hidden>
-  <header>
-    <div class="brand">
-      <div class="brand-mark">HP</div>
-      <div class="brand-text">
+{% block page_content %}
+<div id="hp-wrap">
+  <div class="hp-header">
+    <div class="hp-brand">
+      <div class="hp-mark">HP</div>
+      <div class="hp-brand-text">
         <strong>HarborPoint Learning Solutions</strong>
         <span>IT Asset Management</span>
       </div>
     </div>
-    <div class="header-actions">
+    <div class="hp-header-actions">
       <span class="badge-baseline">AS-IS baseline</span>
       <button class="btn btn-ghost" id="toggle-intake">Record intake</button>
-      <button class="btn btn-ghost" id="logout-btn">Sign out</button>
     </div>
-  </header>
-  <main>
+  </div>
+
+  <div class="hp-main">
     <section>
       <div class="sec-head"><h2>Asset overview</h2><p>Live counts from the current asset register.</p></div>
       <div class="kpi-grid">
@@ -174,6 +119,7 @@ td.asset-id{font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
         <div class="kpi-card"><span class="kpi-label">For repair / retirement</span><span class="kpi-value" id="kpi-attention">0</span><span class="kpi-detail">Needs action</span></div>
       </div>
     </section>
+
     <section id="intake-panel" class="panel" hidden>
       <div class="panel-head">
         <div class="panel-head-left"><h2>Asset intake checklist</h2><p>Centralize receipt, tagging, and registration.</p></div>
@@ -185,6 +131,7 @@ td.asset-id{font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
         <div class="step-item"><span class="dot-warn"></span>Register receipt and evidence</div>
       </div>
     </section>
+
     <div class="two-col">
       <div class="panel">
         <div class="panel-head">
@@ -198,6 +145,7 @@ td.asset-id{font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
         <div class="pain-list" id="pain-list"></div>
       </div>
     </div>
+
     <div class="panel">
       <div class="table-toolbar">
         <div class="panel-head-left">
@@ -224,17 +172,17 @@ td.asset-id{font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
         </table>
       </div>
     </div>
-  </main>
+  </div>
 </div>
 
 <!-- Asset modal -->
 <div class="modal-backdrop" id="asset-modal" hidden>
-  <div class="modal">
+  <div class="modal-box">
     <h3 id="modal-title">Add Asset</h3>
     <div class="modal-grid">
       <div class="form-group">
         <label>Asset ID</label>
-        <input id="f-id" type="text" placeholder="HPL-LT-0001" required>
+        <input id="f-id" type="text" placeholder="HPL-LT-0001">
       </div>
       <div class="form-group">
         <label>Type</label>
@@ -275,9 +223,9 @@ td.asset-id{font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
   </div>
 </div>
 
-<!-- Confirm delete modal -->
+<!-- Confirm delete -->
 <div class="modal-backdrop" id="confirm-modal" hidden>
-  <div class="modal" style="max-width:360px">
+  <div class="modal-box" style="max-width:360px">
     <h3>Delete asset?</h3>
     <p style="color:var(--muted);font-size:13px;margin-top:8px">This will permanently remove <strong id="confirm-asset-id"></strong> from the register.</p>
     <div class="modal-footer">
@@ -288,7 +236,9 @@ td.asset-id{font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
 </div>
 
 <div class="toast" id="toast"></div>
+{% endblock %}
 
+{% block script %}
 <script>
 const STORAGE_KEY='hp_assets_v1';
 const DEFAULT_ASSETS=[
@@ -315,29 +265,20 @@ const PAIN=[
   {id:'P10',title:'Erasure evidence gap',detail:'Data-erasure proof is stored outside the asset record.'},
 ];
 const SC={Assigned:'s-assigned',Loaner:'s-loaner',Repair:'s-repair',Retirement:'s-retirement'};
-
-// Storage helpers
 function loadAssets(){try{const d=localStorage.getItem(STORAGE_KEY);return d?JSON.parse(d):DEFAULT_ASSETS.map(a=>({...a}));}catch(e){return DEFAULT_ASSETS.map(a=>({...a}));}}
 function saveAssets(arr){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(arr));}catch(e){}}
-
-let assets=loadAssets();
-let editingId=null;
-let deleteId=null;
-
-// KPI update
+let assets=loadAssets(),editingId=null,deleteId=null;
 function updateKPIs(){
   document.getElementById('kpi-total').textContent=assets.length;
   document.getElementById('kpi-assigned').textContent=assets.filter(a=>a.status==='Assigned').length;
   document.getElementById('kpi-loaner').textContent=assets.filter(a=>a.status==='Loaner').length;
   document.getElementById('kpi-attention').textContent=assets.filter(a=>a.status==='Repair'||a.status==='Retirement').length;
 }
-
-// Table render
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function renderTable(){
   const filter=document.getElementById('status-filter').value;
   const q=document.getElementById('search-input').value.toLowerCase().trim();
-  const tbody=document.getElementById('asset-tbody');
-  tbody.innerHTML='';
+  const tbody=document.getElementById('asset-tbody');tbody.innerHTML='';
   let rows=assets;
   if(filter!=='All')rows=rows.filter(a=>a.status===filter);
   if(q)rows=rows.filter(a=>[a.id,a.type,a.custodian,a.location,a.next].join(' ').toLowerCase().includes(q));
@@ -346,26 +287,17 @@ function renderTable(){
     const tr=document.createElement('tr');
     tr.innerHTML=`<td class="asset-id">${esc(a.id)}</td><td>${esc(a.type)}</td><td>${esc(a.custodian)}</td><td>${esc(a.location)}</td>`+
       `<td><span class="status-pill ${SC[a.status]||'s-assigned'}">${esc(a.status)}</span></td><td>${esc(a.next)}</td>`+
-      `<td><div class="action-cell">`+
-      `<button class="btn btn-ghost btn-sm" onclick="openEdit('${esc(a.id)}')">Edit</button>`+
-      `<button class="btn btn-danger btn-sm" onclick="openDelete('${esc(a.id)}')">Delete</button>`+
-      `</div></td>`;
+      `<td><div class="action-cell"><button class="btn btn-ghost btn-sm" onclick="openEdit('${esc(a.id)}')">Edit</button>`+
+      `<button class="btn btn-danger btn-sm" onclick="openDelete('${esc(a.id)}')">Delete</button></div></td>`;
     tbody.appendChild(tr);
   });
 }
-
-function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-
-// Modal helpers
 function openAdd(){
   editingId=null;
   document.getElementById('modal-title').textContent='Add Asset';
   document.getElementById('f-id').value='HPL-LT-'+(String(assets.length+1).padStart(4,'0'));
   document.getElementById('f-id').disabled=false;
-  document.getElementById('f-type').value='Laptop';
   document.getElementById('f-custodian').value='';
-  document.getElementById('f-location').value='Calapan HQ';
-  document.getElementById('f-status').value='Assigned';
   document.getElementById('f-next').value='Review in 90 days';
   document.getElementById('asset-modal').hidden=false;
 }
@@ -373,80 +305,37 @@ function openEdit(id){
   const a=assets.find(x=>x.id===id);if(!a)return;
   editingId=id;
   document.getElementById('modal-title').textContent='Edit Asset';
-  document.getElementById('f-id').value=a.id;
-  document.getElementById('f-id').disabled=true;
-  document.getElementById('f-type').value=a.type;
-  document.getElementById('f-custodian').value=a.custodian;
-  document.getElementById('f-location').value=a.location;
-  document.getElementById('f-status').value=a.status;
+  document.getElementById('f-id').value=a.id;document.getElementById('f-id').disabled=true;
+  document.getElementById('f-type').value=a.type;document.getElementById('f-custodian').value=a.custodian;
+  document.getElementById('f-location').value=a.location;document.getElementById('f-status').value=a.status;
   document.getElementById('f-next').value=a.next;
   document.getElementById('asset-modal').hidden=false;
 }
 function closeModal(){document.getElementById('asset-modal').hidden=true;editingId=null;}
-function openDelete(id){
-  deleteId=id;
-  document.getElementById('confirm-asset-id').textContent=id;
-  document.getElementById('confirm-modal').hidden=false;
-}
+function openDelete(id){deleteId=id;document.getElementById('confirm-asset-id').textContent=id;document.getElementById('confirm-modal').hidden=false;}
 function closeConfirm(){document.getElementById('confirm-modal').hidden=true;deleteId=null;}
-
 function saveAsset(){
   const id=document.getElementById('f-id').value.trim();
-  const type=document.getElementById('f-type').value;
-  const custodian=document.getElementById('f-custodian').value.trim()||'Unassigned';
-  const location=document.getElementById('f-location').value;
-  const status=document.getElementById('f-status').value;
-  const next=document.getElementById('f-next').value.trim()||'—';
   if(!id){showToast('Asset ID is required.');return;}
-  if(editingId){
-    const idx=assets.findIndex(a=>a.id===editingId);
-    if(idx>-1){assets[idx]={id,type,custodian,location,status,next};}
-    showToast('Asset updated.');
-  } else {
-    if(assets.find(a=>a.id===id)){showToast('Asset ID already exists.');return;}
-    assets.push({id,type,custodian,location,status,next});
-    showToast('Asset added.');
-  }
+  const rec={id,type:document.getElementById('f-type').value,custodian:document.getElementById('f-custodian').value.trim()||'Unassigned',location:document.getElementById('f-location').value,status:document.getElementById('f-status').value,next:document.getElementById('f-next').value.trim()||'—'};
+  if(editingId){const idx=assets.findIndex(a=>a.id===editingId);if(idx>-1)assets[idx]=rec;showToast('Asset updated.');}
+  else{if(assets.find(a=>a.id===id)){showToast('Asset ID already exists.');return;}assets.push(rec);showToast('Asset added.');}
   saveAssets(assets);updateKPIs();renderTable();closeModal();
 }
-
-function confirmDelete(){
-  assets=assets.filter(a=>a.id!==deleteId);
-  saveAssets(assets);updateKPIs();renderTable();
-  showToast('Asset deleted.');closeConfirm();
-}
-
-// Export CSV
+function confirmDelete(){assets=assets.filter(a=>a.id!==deleteId);saveAssets(assets);updateKPIs();renderTable();showToast('Asset deleted.');closeConfirm();}
 function exportCSV(){
-  const headers=['Asset ID','Type','Custodian','Location','Status','Next Action'];
   const rows=assets.map(a=>[a.id,a.type,a.custodian,a.location,a.status,a.next].map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(','));
-  const csv=[headers.join(','),...rows].join('\n');
-  const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
-  a.download='harborpoint-assets.csv';a.click();
+  const csv=['Asset ID,Type,Custodian,Location,Status,Next Action',...rows].join('\n');
+  const el=document.createElement('a');el.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);el.download='harborpoint-assets.csv';el.click();
   showToast('Exported CSV.');
 }
-
-// Toast
-function showToast(msg){
-  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2500);
-}
-
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
 // Static sections
 const lcGrid=document.getElementById('lifecycle-grid');
-LIFECYCLE.forEach((s,i)=>{
-  const d=document.createElement('div');d.className='lifecycle-card risk';
-  d.innerHTML=`<span class="lc-eyebrow">0${i+1} <span class="gap-tag">Gap</span></span><div class="lc-name">${s.name}</div><div class="lc-asis">${s.asIs}</div><div class="lc-tobe">To-be: ${s.toBe}</div>`;
-  lcGrid.appendChild(d);
-});
+LIFECYCLE.forEach((s,i)=>{const d=document.createElement('div');d.className='lifecycle-card risk';d.innerHTML=`<span class="lc-eyebrow">0${i+1} <span class="gap-tag">Gap</span></span><div class="lc-name">${s.name}</div><div class="lc-asis">${s.asIs}</div><div class="lc-tobe">To-be: ${s.toBe}</div>`;lcGrid.appendChild(d);});
 const painList=document.getElementById('pain-list');
-PAIN.forEach(p=>{
-  const d=document.createElement('div');d.className='pain-row';
-  d.innerHTML=`<span class="pain-id">${p.id}</span><div><div class="pain-title">${p.title}</div><div class="pain-detail">${p.detail}</div></div>`;
-  painList.appendChild(d);
-});
-
-// Event wiring
+PAIN.forEach(p=>{const d=document.createElement('div');d.className='pain-row';d.innerHTML=`<span class="pain-id">${p.id}</span><div><div class="pain-title">${p.title}</div><div class="pain-detail">${p.detail}</div></div>`;painList.appendChild(d);});
+// Events
 document.getElementById('status-filter').addEventListener('change',renderTable);
 document.getElementById('search-input').addEventListener('input',renderTable);
 document.getElementById('add-asset-btn').addEventListener('click',openAdd);
@@ -460,41 +349,6 @@ document.getElementById('confirm-modal').addEventListener('click',e=>{if(e.targe
 const intakePanel=document.getElementById('intake-panel');
 const toggleBtn=document.getElementById('toggle-intake');
 toggleBtn.addEventListener('click',()=>{const open=!intakePanel.hidden;intakePanel.hidden=open;toggleBtn.textContent=open?'Record intake':'Close intake';});
-
-// Init
 updateKPIs();renderTable();
-
-// Login
-const overlay=document.getElementById('login-overlay');
-const appEl=document.getElementById('app');
-const errEl=document.getElementById('login-error');
-const pwdEl=document.getElementById('pwd');
-document.getElementById('login-btn').addEventListener('click',doLogin);
-pwdEl.addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
-async function doLogin(){
-  const usr=document.getElementById('usr').value.trim();
-  const pwd=pwdEl.value;
-  errEl.hidden=true;
-  if(!usr||!pwd){errEl.textContent='Please enter username and password.';errEl.hidden=false;return;}
-  const btn=document.getElementById('login-btn');
-  btn.disabled=true;btn.textContent='Signing in…';
-  if((usr.toLowerCase()==='administrator'||usr.toLowerCase()==='admin')&&pwd==='admin'){
-    overlay.hidden=true;appEl.hidden=false;
-    btn.disabled=false;btn.textContent='Sign in to HarborPoint';return;
-  }
-  try{
-    const form=new FormData();form.append('usr',usr);form.append('pwd',pwd);
-    const res=await fetch('/api/method/login',{method:'POST',body:form,credentials:'include'});
-    if(res.ok){overlay.hidden=true;appEl.hidden=false;return;}
-    errEl.textContent='Invalid username or password.';errEl.hidden=false;
-  }catch(e){overlay.hidden=true;appEl.hidden=false;}
-  finally{btn.disabled=false;btn.textContent='Sign in to HarborPoint';}
-}
-async function doLogout(){
-  try{await fetch('/api/method/logout',{method:'POST'});}catch(e){}
-  appEl.hidden=true;overlay.hidden=false;pwdEl.value='';errEl.hidden=true;
-}
-document.getElementById('logout-btn').addEventListener('click',doLogout);
 </script>
-</body>
-</html>
+{% endblock %}

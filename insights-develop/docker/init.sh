@@ -16,8 +16,9 @@ if [ -d "/home/frappe/frappe-bench/apps/frappe" ]; then
     sed -i '/worker/d' Procfile
     sed -i '/schedule/d' Procfile
 
-    # Deploy the standalone HarborPoint page (no build required)
+    # Deploy the HarborPoint page and controller
     cp /workspace/insights-develop/docker/harborpoint.html apps/frappe/frappe/www/harborpoint.html
+    cp /workspace/insights-develop/docker/harborpoint.py apps/frappe/frappe/www/harborpoint.py
 
     exec bench start
 fi
@@ -57,7 +58,8 @@ bench --site "${SITE_NAME}" clear-cache
 bench use "${SITE_NAME}"
 bench --site "${SITE_NAME}" set-config home_page insights
 
-# Deploy the standalone HarborPoint page (no build required)
+# Deploy the HarborPoint page and controller
 cp /workspace/insights-develop/docker/harborpoint.html apps/frappe/frappe/www/harborpoint.html
+cp /workspace/insights-develop/docker/harborpoint.py apps/frappe/frappe/www/harborpoint.py
 
 exec bench start
